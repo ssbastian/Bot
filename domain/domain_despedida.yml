@@ -1,0 +1,95 @@
+
+
+intents:
+  - int_despedirse
+  - int_si_despedida
+  - int_no_despedida
+  - int_respuesta_escuesta
+
+entities:
+  - ent_mejora
+  - ent_satisfaccion
+  - ent_recomendacion
+
+slots:
+
+
+  slot_feedback_pendiente:
+    type: bool
+    initial_value: false
+    mappings:
+      - type: custom   # ya no se llena automáticamente por intents
+
+  
+  slot_ultima_encuesta:
+    type: float   # usaremos timestamp (segundos desde epoch)
+    influence_conversation: true
+    mappings:
+      - type: custom
+
+  slot_mejora:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: ent_mejora
+        intent: int_respuesta_escuesta
+
+
+  slot_satisfaccion:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: ent_satisfaccion
+        intent: int_respuesta_escuesta
+        
+
+  slot_recomendacion:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: ent_recomendacion
+        intent: int_respuesta_escuesta
+
+
+responses:
+  utter_ofrecer_feedback:
+    - text: "Antes de irte, ¿te gustaría responder 3 preguntas rápidas sobre tu experiencia? (sí/no)"
+  utter_pregunta_1:
+    - text: "¿Te sentiste mejor de la interacción con el bot?"
+      buttons:
+      - title: "Sí ✅"
+        payload: '/int_respuesta_escuesta{{"ent_mejora":"si"}}'
+      - title: "No ❌"
+        payload: '/int_respuesta_escuesta{{"ent_mejora":"no"}}'
+
+  utter_pregunta_2:
+    - text: "Del 1 al 5, ¿cómo calificarías tu experiencia? (1: Mala, 5: Excelente)"
+      buttons:
+      - title: "1 ⭐"
+        payload: '/int_respuesta_escuesta{{"ent_satisfaccion": "1"}}'
+      - title: "2 ⭐"
+        payload: '/int_respuesta_escuesta{{"ent_satisfaccion": "2"}}'
+      - title: "3 ⭐"
+        payload: '/int_respuesta_escuesta{{"ent_satisfaccion": "3"}}'
+      - title: "4 ⭐"
+        payload: '/int_respuesta_escuesta{{"ent_satisfaccion": "4"}}'
+      - title: "5 ⭐"
+        payload: '/int_respuesta_escuesta{{"ent_satisfaccion": "5"}}'
+  
+  utter_pregunta_3:
+    - text: "¿Recomendarías este bot a alguien más?"
+      buttons:
+        - title: "Sí ✅"
+          payload: '/int_respuesta_escuesta{{"ent_recomendacion": "si"}}'
+        - title: "No ❌"
+          payload: '/int_respuesta_escuesta{{"ent_recomendacion": "no"}}'
+  
+  utter_agradecimiento:
+    - text: "¡Gracias por tu feedback! 💙"
+  utter_despedida_final:
+    - text: "¡Hasta luego! Cuídate mucho."
+
+actions:
+  - action_deactivate_feedback
+  - action_verificar_feedback
+

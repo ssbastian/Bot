@@ -1,0 +1,9 @@
+rasaEntorno\Scripts\activate
+
+rasa train
+
+rasa shell
+
+rasa run actions
+
+python merge_domains.py

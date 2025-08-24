@@ -1,0 +1,35 @@
+
+version: "3.1"
+
+nlu:
+
+
+#comentar porque solo lo llamare desde buttons
+- intent: int_llamar_menu_alternativas
+  examples: |
+    - llama a menu alternativas
+    - call a menu alternativas
+
+- intent: int_pedir_escucha
+  examples: |
+    - no sé ni por dónde empezar
+    - últimamente todo es complicado
+    - quiero desahogarme
+    - necesito que me escuches
+    - hay muchas cosas que no entiendo
+    - a veces siento que nadie me comprende
+    - solo quiero hablar sin que me juzguen
+    - no necesito consejos, solo que me escuches
+    - hay tantas cosas pasando en mi cabeza
+    - siento que estoy cargando mucho
+    - me vendría bien hablar un rato
+    - quiero soltar lo que llevo dentro
+    - a veces me siento perdido y no sé qué hacer
+    - solo necesito un momento para expresarme
+    - no busco soluciones, solo ser escuchado
+    - siento que todo se me acumula
+    - me ayudaría contarte lo que pasa
+    - ¿puedo hablar contigo un rato?
+    - hay cosas que me cuesta contar
+    - quiero que alguien me preste atención
+

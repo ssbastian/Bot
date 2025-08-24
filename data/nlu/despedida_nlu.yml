@@ -1,0 +1,32 @@
+version: "3.1"
+
+nlu:
+- intent: int_despedirse
+  examples: |
+    - adiós
+    - hasta luego
+    - terminar
+    - ya me voy
+    - 👋 Adiós! Quiero terminar la sesión
+
+- intent: int_si_despedida
+  examples: |
+    - claro
+    - por supuesto
+    - acepto
+
+- intent: int_no_despedida
+  examples: |
+    - no gracias
+    - ahora no
+    - cancelar
+    - paso  # Eliminé "no" para evitar conflicto
+
+
+ 
+- intent: int_respuesta_escuesta
+  examples: |
+    - [/~~si/](ent_mejora)
+    - [/~~no/](ent_mejora)
+
+   

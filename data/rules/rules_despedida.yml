@@ -1,0 +1,64 @@
+version: "3.1"
+
+rules:
+
+
+  - rule: rul_Iniciar_feedback_despedida
+    steps:
+      - intent: int_despedirse
+      - action: action_verificar_feedback  #vericar si ya pasó el tiempo
+      - slot_was_set:
+          - slot_feedback_pendiente: true
+      - action: utter_ofrecer_feedback
+
+  - rule: rul_no_feedback_por_encuesta
+    steps:
+      - intent: int_despedirse
+      - action: action_verificar_feedback #vericar si ya pasó el tiempo
+      - slot_was_set:
+          - slot_feedback_pendiente: false
+      - action: utter_despedida_final
+
+
+  - rule: rul_Usuario_si_feedback
+    steps:
+      - intent: int_si_despedida
+      - slot_was_set:
+          - slot_feedback_pendiente: true
+      - action: utter_pregunta_1
+
+  - rule: rul_Usuario_no_feedback
+    steps:
+      - intent: int_no_despedida
+      - slot_was_set:
+          - slot_feedback_pendiente: false
+      - action: utter_despedida_final
+
+  - rule: rul_Capturar_pregunta_1
+    steps:
+      - slot_was_set:
+          - slot_feedback_pendiente: true
+      - intent: int_respuesta_escuesta
+        entities:
+          - ent_mejora
+      - action: utter_pregunta_2
+
+  - rule: rul_Capturar_pregunta_2
+    steps:
+      - slot_was_set:
+          - slot_feedback_pendiente: true
+      - intent: int_respuesta_escuesta
+        entities:
+          - ent_satisfaccion
+      - action: utter_pregunta_3
+
+  - rule: rul_Capturar_pregunta_3
+    steps:
+      - slot_was_set:
+          - slot_feedback_pendiente: true
+      - intent: int_respuesta_escuesta
+        entities:
+          - ent_recomendacion
+      - action: utter_agradecimiento
+      - action: utter_despedida_final
+      - action: action_deactivate_feedback

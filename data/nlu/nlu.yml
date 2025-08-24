@@ -1,0 +1,121 @@
+version: "3.1"
+
+nlu:
+- intent: saludo
+  examples: |
+    - hola
+    - buenos días
+    - buenas tardes
+    - buenas noches
+    - qué tal
+    - cómo estás
+    - qué hay
+    - qué pasa
+    - qué onda
+    - qué hubo
+    - saludos
+
+- intent: int_expresar_emocion
+  examples: |
+    - me siento [feliz](ent_emocion)
+    - estoy [contento](ent_emocion)
+    - estoy [alegre](ent_emocion)
+    - me encuentro [animado](ent_emocion)
+    - estoy [deprimido](ent_emocion)
+    - me siento [triste](ent_emocion)
+    - estoy [frustrado](ent_emocion)
+    - me siento [enojado](ent_emocion)
+    - estoy [neutral](ent_emocion)
+    - me siento [indiferente](ent_emocion)
+    - mi estado es [regular](ent_emocion)
+    - hoy estoy [optimista](ent_emocion)
+    - me siento [relajado](ent_emocion)
+    - estoy [estresado](ent_emocion)
+    - me siento [cansado](ent_emocion)
+    - estoy [molesto](ent_emocion)
+    - me siento [eufórico](ent_emocion)
+    - estoy [equilibrado](ent_emocion)
+    - me siento [normal](ent_emocion)
+    - estoy [ansioso](ent_emocion)
+
+# Definición de sinónimos (normalización a categorías)
+- synonym: positivo
+  examples: |
+    - feliz
+    - contento
+    - alegre
+    - relajado
+    - animado
+    - optimista
+    - energético
+    - eufórico
+    - emocionado
+
+- synonym: negativo
+  examples: |
+    - deprimido
+    - cansado
+    - frustrado
+    - triste
+    - enojado
+    - ansioso
+    - estresado
+    - molesto
+
+- synonym: neutro
+  examples: |
+    - neutral
+    - indiferente
+    - regular
+    - equilibrado
+    - normal
+    - promedio
+  
+- intent: int_si_actividades
+  examples: |
+    - sí
+    - sí, por favor
+    - claro
+    - correcto
+    - por supuesto
+    - exacto
+    - afirmativo
+    - así es
+    - de acuerdo
+    - ok
+    - okay
+    - vale
+    - perfecto
+
+- intent: int_no_actividades
+  examples: |
+    - no
+    - no, gracias
+    - para nada
+    - en absoluto
+    - negativo
+    - nunca
+    - no quiero
+    - prefiero no
+    - mejor no
+    - cancelar
+    - no gracias
+    - no, por favor
+
+ 
+#verificar si se puede eliminar este intent
+- intent: int_sel_actividad
+  examples: |
+    - [1](ent_numActividad)
+    - [uno](ent_numActividad)
+    - [la primera](ent_numActividad)
+    - [2](ent_numActividad)
+    - [dos](ent_numActividad)
+    - [la segunda](ent_numActividad)
+    - [3](ent_numActividad)
+    - [tres](ent_numActividad)
+    - [la tercera](ent_numActividad)
+    - [4](ent_numActividad)
+    - [cuatro](ent_numActividad)
+    - [la cuarta](ent_numActividad)
+

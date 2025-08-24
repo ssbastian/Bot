@@ -1,0 +1,114 @@
+intents:
+  #TODO MENUS
+
+  - int_llamar_menu_alternativas
+  - int_menu_sel_alternativa
+  - int_menu_sel_recurso
+  - int_menu_sel_hablar_de_ti
+  - int_pedir_escucha
+
+  - int_actividades_mostrarAll
+
+entities:
+  - ent_person_nombre
+  - ent_tipo_alternativa
+  - ent_tipo_recurso
+
+  - ent_actividades_all
+
+slots:
+
+  slot_tipo_alternativa:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: ent_tipo_alternativa
+        intent: int_menu_sel_alternativa
+  slot_tipo_recurso:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: ent_tipo_recurso
+        intent: int_menu_sel_recurso
+  slot_contexto:
+    type: text
+    influence_conversation: true
+    initial_value: null
+    mappings:
+      - type: custom
+
+
+  slot_actividades_all:
+    type: text
+    initial_value: "false"
+    # influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: ent_actividades_all  # o el nombre de la entidad que captures del botón
+        intent: int_actividades_mostrarAll
+
+responses:
+
+  utter_menu_list_alternativa:
+  - text: |
+      Tengo estas alternativas disponibles para ti:
+      1️⃣ Hablar de cómo te sientes
+      2️⃣ Recibir algún recurso
+      3️⃣ Terminar la conversación
+      ¿Qué número te interesa? dime
+
+  utter_menu_button_alternativa:
+  - text: "¿Te gustaría en cambio..."
+    buttons:
+    - title: "Hablar de cómo te sientes"
+      payload: '/int_menu_sel_alternativa{{"ent_tipo_alternativa":"sentimientos"}}'
+    - title: "Recibir algún recurso"
+      payload: '/int_menu_sel_alternativa{{"ent_tipo_alternativa":"recursos"}}'
+    - title: "Terminar la conversación"
+      # payload: '/int_despedirse'
+      #payload: "👋 Adiós! Quiero terminar la sesión"
+      payload: '/int_menu_sel_alternativa{{"ent_tipo_alternativa":"despedida"}}'
+
+  utter_despedida_final:
+  - text: "👋 ¡Adiós! Quiero terminar la sesión" 
+
+  utter_menu_list_recurso:
+  - text: |
+      Tengo estos recursos disponibles para ti:
+      1️⃣ Meditación guiada (5 min)
+      2️⃣ Ejercicios de respiración
+      3️⃣ Artículo sobre manejo emocional
+      ¿Qué número te interesa? dime
+
+
+  utter_menu_button_recurso:
+  - text: "Elige una opción:"
+    buttons:
+    - title: "Opcion 1"
+      payload: '/int_menu_sel_recurso{{"ent_tipo_recurso":"meditacion"}}'
+    - title: "Opcion 2"
+      payload: '/int_menu_sel_recurso{{"ent_tipo_recurso":"respiracion"}}'
+    - title: "Opcion 3"
+      payload: '/int_menu_sel_recurso{{"ent_tipo_recurso":"articulo"}}'
+
+
+  utter_preguntar_feedback:
+  - text: "¿Te gustaría que te enviara un recurso adicional o tienes alguna otra pregunta?"
+
+
+  utter_iniciar_escucha:
+  - text: |
+        Entiendo que te has estado sintiendo.  
+        Me gustaría escucharte un poco más...  
+        ¿Quieres contarme qué ha pasado últimamente o qué ha hecho que te sientas así?
+
+  utter_cerrar_escucha:
+  - text: |
+        Gracias por compartirlo conmigo.  
+        ¿Quieres que ahora te sugiera alguna actividad, o prefieres terminar por hoy?
+
+actions:
+
+  - action_manejar_alternativas
+  - action_entrega_recurso_sel
+  - action_responder_escucha_activa

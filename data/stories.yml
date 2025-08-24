@@ -1,0 +1,82 @@
+version: "3.1"
+
+stories:
+
+
+
+## ================================
+##MANEJO EMOCIONAL  historias base
+## ================================
+- story: str_manejo_emocionesNegativas
+  steps:
+  - intent: int_expresar_emocion
+    entities:
+      - ent_emocion: negativo
+  - action: utter_emocion_negativa # para testear
+  - action: utter_ofrecer_actividad
+
+
+- story: str_manejo_emocionesPositivas
+  steps:
+  - intent: int_expresar_emocion
+    entities:
+      - ent_emocion: positivo
+  - action: utter_emocion_positiva
+  - action: utter_ofrecer_actividad
+
+
+- story: str_manejo_emocionesNeutrales
+  steps:
+  - intent: int_expresar_emocion
+    entities:
+      - ent_emocion: neutro
+  - action: utter_emocion_neutra
+  - action: utter_ofrecer_actividad
+
+
+
+
+## ==============================================
+## Flujos ACEPTACION actividades
+## =============================================
+
+- story: str_suario_acepta_actividades
+  steps:
+  - intent: int_si_actividades
+  - action: action_filtrar_opciones # muestra en pantalla las descripciones de las actividades
+  - action: utter_menu_sel_actividad # muestra botones de opciones
+
+
+
+- story: str_seleccion_opcciones_actividades
+  steps:
+  - intent: int_sel_actividad #botones [opcion1] [opcion2] [opcion3] [opcion4]
+  # - action: utter_opcion_prueba
+  - action: custom_action_ejecutar_opcion
+  - action: utter_profundizar
+
+  # - intent: int_si_actividades
+  # - action: action_ejecutar_guia_interactiva
+   
+  
+
+## ==============================================
+## Flujos NEGACION actividades
+## ==============================================
+
+- story: str_base_user_no_actividades
+  steps:
+    - intent: int_no_actividades
+    - action: utter_respetar_decision
+    - action: utter_TEST
+    - action: utter_menu_list_alternativa
+    - action: utter_menu_button_alternativa
+
+
+  #TODO RECURSOS
+
+
+  # - intent: int_si_actividades
+  # - action: action_guardar_progreso  # Guarda slots en DB
+  # - action: utter_despedida_final
+  #   text: "Gracias por compartir. ¡Hasta pronto!"

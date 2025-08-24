@@ -1,0 +1,50 @@
+version: "3.1"
+
+rules:
+
+  - rule: rul_menu_alternativas
+    steps:
+      - intent: int_llamar_menu_alternativas
+      - action: utter_menu_list_alternativa
+      - action: utter_menu_button_alternativa  
+
+  - rule: rul_menu_sel_alternativa
+    steps:
+      - intent: int_menu_sel_alternativa
+      - action: action_manejar_alternativas
+
+  - rule: rul_pedir_recurso
+    steps:
+      - intent: int_menu_sel_recurso
+      - action: utter_menu_list_recurso
+      - action: utter_menu_button_recurso
+      - action: action_entrega_recurso_sel
+
+  - rule: Responder durante escucha activa
+    condition:
+      - slot_was_set:
+          - slot_contexto: "escucha_activa"
+    steps:
+      - intent: int_pedir_escucha
+      - action: action_responder_escucha_activa
+      - action: utter_cerrar_escucha
+      - slot_was_set:
+          - slot_contexto: null
+
+### MOSTRAR todas las actividades
+  - rule: rul_actividades_mostrarAll
+    steps:
+    - intent: int_actividades_mostrarAll
+    # - action: action_filtrar_opciones # muestra el menu
+    - action: utter_menu_mostrarAll # muestra menu
+    - action: utter_menu_button_mostrarAll # muestraBotones
+
+    #todo hacer botones
+    #utter_menu_button_mostrarAll
+
+
+  - rule: rul_seleccion_actividadesAll
+    steps: 
+    - intent: int_sel_actividadAll
+    - action: custom_action_ejecutar_cualquiera
+    - action: utter_profundizar
