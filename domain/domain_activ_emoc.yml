@@ -84,7 +84,7 @@ responses:
     - title: "Botón 4"
       payload: '/int_sel_actividad{{"ent_numActividad":"4"}}'
     - title: Ver todas las actividades
-      payload: '/int_actividades_mostrarAll{"ent_actividades_all": "true"}'
+      payload: '/int_actividades_mostrarAll{{"ent_actividades_all": "false"}}'
               
                 
 
@@ -95,7 +95,7 @@ responses:
 
   utter_menu_mostrarAll:
   - text: |
-      Estas son todas las actividades disponibles:
+      Mira {slot_name} estas son todas las actividades que tengo disponibles:
       1️⃣ Respiración 4-7-8 (2 min)
       2️⃣ Escritura terapéutica (10 min)
       3️⃣ Audio de relajación (5 min)
@@ -108,8 +108,6 @@ responses:
       🔟 Organizar un espacio
       1️⃣1️⃣ Lectura breve
       1️⃣2️⃣ Tomar agua
-
-      Elige un número para comenzar la actividad o escribe 'cancelar' si quieres volver al menú anterior.
 
 
   utter_menu_button_mostrarAll:
@@ -127,11 +125,6 @@ responses:
       payload: /int_sel_actividadAll{"ent_numActividad":"5"}
     - title: 6️⃣ Bailar 3 canciones
       payload: /int_sel_actividadAll{"ent_numActividad":"6"}
-
-  
-  utter_menu_button_mostrarAll2:
-  - text: 'Elige una opción:'
-    buttons:
     - title: 7️⃣ Empezar un proyecto creativo
       payload: /int_sel_actividadAll{"ent_numActividad":"7"}
     - title: 8️⃣ Hacer una lista de gratitud
@@ -144,6 +137,8 @@ responses:
       payload: /int_sel_actividadAll{"ent_numActividad":"11"}
     - title: 12️⃣ Hidratación consciente
       payload: /int_sel_actividadAll{"ent_numActividad":"12"}
+  
+  
 
   # --------------- ACTIVADES --------------  
   utter_detalle_respiracion:
@@ -217,3 +212,4 @@ actions:
 - action_filtrar_opciones
 - custom_action_ejecutar_opcion
 - custom_action_ejecutar_cualquiera
+- action_mostrar_menu_all

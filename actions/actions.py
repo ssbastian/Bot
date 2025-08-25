@@ -21,10 +21,10 @@ class ActionFiltrarOpciones(Action):
         return "action_filtrar_opciones"
 
     def run(self, dispatcher, tracker, domain):
-        mostrar_todas_str = tracker.get_slot("slot_actividades_all")
-        mostrar_todas = mostrar_todas_str == "true"
+        # mostrar_todas_str = tracker.get_slot("slot_actividades_all")
+        # mostrar_todas = mostrar_todas_str == "true"
         varEmocion = tracker.get_slot("slot_tipo_emocion")
-        print("mostrar_todas:---",mostrar_todas)
+        mostrar_todas = False
         if mostrar_todas:
             dispatcher.utter_message(response="utter_menu_mostrarAll")
         else:
@@ -38,50 +38,8 @@ class ActionFiltrarOpciones(Action):
                 dispatcher.utter_message(text="No se pudo identificar la emoción actual. Por favor, intenta de nuevo.")
 
         # Resetear el slot después de mostrar las actividades
-        return [SlotSet("slot_actividades_all", "false")]
+        return []
     
-# class ActionFiltrarOpciones(Action):
-#     def name(self) -> Text:
-#         return "action_filtrar_opciones"
-
-#     def run(self, dispatcher, tracker, domain):
-#         varEmocion = tracker.get_slot("slot_tipo_emocion")
-
-#         if varEmocion == "negativo":
-#             dispatcher.utter_message(response="utter_menu_list_actividadesN")
-#         elif varEmocion == "positivo":
-#             dispatcher.utter_message(response="utter_menu_list_actividadesP")
-#         elif varEmocion == "neutro":
-#             dispatcher.utter_message(response="utter_menu_list_actividadesNE")
-#         else:
-#             dispatcher.utter_message(text="No se pudo identificar la emoción actual. Por favor, intenta de nuevo.")
-
-#         return []
-# class ActionFiltrarOpciones(Action):
-#     def name(self) -> Text:
-#         return "action_filtrar_opciones"
-
-#     def run(self, dispatcher, tracker, domain):
-#         varEmocion = tracker.get_slot("slot_tipo_emocion")
-#         mostrarTodas = tracker.get_slot("slot_actividades_all")  # slot para mostrar todas las actividades
-#         print('MOSTRAR TODAS--',mostrarTodas)
-#         # Primero revisamos si el usuario quiere ver todas las actividades
-#         if mostrarTodas:
-#             dispatcher.utter_message(response="utter_menu_mostrarAll")
-#         else:
-#             # Filtramos según la emoción
-#             if varEmocion == "negativo":
-#                 print('EMOCIONES negativas--')
-#                 dispatcher.utter_message(response="utter_TEST")
-#                 #dispatcher.utter_message(response="utter_menu_list_actividadesN")
-#             elif varEmocion == "positivo":
-#                 dispatcher.utter_message(response="utter_menu_list_actividadesP")
-#             elif varEmocion == "neutro":
-#                 dispatcher.utter_message(response="utter_menu_list_actividadesNE")
-#             else:
-#                 dispatcher.utter_message(text="No se pudo identificar la emoción actual. Por favor, intenta de nuevo.")
-
-#         return [SlotSet("slot_actividades_all", False)]
 
 class ActionEjecutarOpcion(Action):
     def name(self) -> Text:
@@ -173,6 +131,51 @@ class ActionEjecutarCualquiera(Action):
         
         # 4. (Opcional) limpiar slot si lo usas
         #return [SlotSet("slot_opcion_actividad", None)]
+        return []
+
+
+
+class ActionMostrarMenuAll(Action):
+    def name(self) -> Text:
+        return "action_mostrar_menu_all"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        # Recuperar el nombre del usuario desde el slot
+        # varNombre = tracker.get_slot("slot_name")
+        # if not varNombre:
+        #     varNombre = "usuario"  # valor por defecto si el slot está vacío
+            
+        actividades = [
+            "1️⃣ 🌬️ Respira",
+            "2️⃣ ✍️ Escribe",
+            "3️⃣ 🎧 Audio",
+            "4️⃣ 🤸 Estira",
+            "5️⃣ 😊 Comparte",
+            "6️⃣ 💃 Bailar",
+            "7️⃣ 🎨 Creativo",
+            "8️⃣ 📝 Gratitud",
+            "9️⃣ 🧘 Medita",
+            "🔟 🧹 Ordena",
+            "11️⃣ 📖 Leer",
+            "12️⃣ 💧 Hidratación"
+        ]
+
+        # Convertir actividades en payload para Rasa
+        botones = [
+            [{"text": act, "callback_data": f'/int_sel_actividadAll{{"ent_numActividad":"{i+1}"}}'} 
+             for i, act in enumerate(actividades)][j:j+4] 
+            for j in range(0, len(actividades), 4)
+        ]
+
+        mensaje = {
+            "text": "Pudes elegir la que mas te llame la atención:",
+            "reply_markup": {"inline_keyboard": botones}
+        }
+
+        dispatcher.utter_message(json_message=mensaje)
         return []
 
 ## ==============================================

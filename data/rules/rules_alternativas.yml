@@ -37,8 +37,8 @@ rules:
     - intent: int_actividades_mostrarAll
     # - action: action_filtrar_opciones # muestra el menu
     - action: utter_menu_mostrarAll # muestra menu
-    - action: utter_menu_button_mostrarAll # muestraBotones
-    - action: utter_menu_button_mostrarAll2
+    # - action: utter_menu_button_mostrarAll # muestraBotones
+    - action: action_mostrar_menu_all
 
     #todo hacer botones
     #utter_menu_button_mostrarAll

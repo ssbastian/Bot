@@ -282,7 +282,7 @@ responses:
     - title: Botón 4
       payload: /int_sel_actividad{{"ent_numActividad":"4"}}
     - title: Ver todas las actividades
-      payload: '/int_actividades_mostrarAll{"ent_actividades_all": "true"}'
+      payload: '/int_actividades_mostrarAll{"ent_actividades_all": "false"}'
   utter_profundizar:
   - text: ¿Necesitas una guía paso a paso o prefieres intentarlo por tu cuenta?
   utter_menu_mostrarAll:
@@ -312,9 +312,6 @@ responses:
 
       1️⃣2️⃣ Tomar agua
 
-
-      Elige un número para comenzar la actividad o escribe ''cancelar'' si quieres volver al menú anterior.
-
       '
   utter_menu_button_mostrarAll:
   - text: 'Elige una opción:'
@@ -331,9 +328,6 @@ responses:
       payload: /int_sel_actividadAll{"ent_numActividad":"5"}
     - title: 6️⃣ Bailar 3 canciones
       payload: /int_sel_actividadAll{"ent_numActividad":"6"}
-  utter_menu_button_mostrarAll2:
-  - text: 'Elige una opción:'
-    buttons:
     - title: 7️⃣ Empezar un proyecto creativo
       payload: /int_sel_actividadAll{"ent_numActividad":"7"}
     - title: 8️⃣ Hacer una lista de gratitud
@@ -614,6 +608,7 @@ actions:
 - action_filtrar_opciones
 - custom_action_ejecutar_opcion
 - custom_action_ejecutar_cualquiera
+- action_mostrar_menu_all
 - action_manejar_alternativas
 - action_entrega_recurso_sel
 - action_responder_escucha_activa
