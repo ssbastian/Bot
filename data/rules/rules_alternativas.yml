@@ -38,6 +38,7 @@ rules:
     # - action: action_filtrar_opciones # muestra el menu
     - action: utter_menu_mostrarAll # muestra menu
     - action: utter_menu_button_mostrarAll # muestraBotones
+    - action: utter_menu_button_mostrarAll2
 
     #todo hacer botones
     #utter_menu_button_mostrarAll

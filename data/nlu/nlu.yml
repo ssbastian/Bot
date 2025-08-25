@@ -1,19 +1,19 @@
 version: "3.1"
 
 nlu:
-- intent: saludo
-  examples: |
-    - hola
-    - buenos días
-    - buenas tardes
-    - buenas noches
-    - qué tal
-    - cómo estás
-    - qué hay
-    - qué pasa
-    - qué onda
-    - qué hubo
-    - saludos
+# - intent: saludo
+#   examples: |
+#     - hola
+#     - buenos días
+#     - buenas tardes
+#     - buenas noches
+#     - qué tal
+#     - cómo estás
+#     - qué hay
+#     - qué pasa
+#     - qué onda
+#     - qué hubo
+#     - saludos
 
 - intent: int_expresar_emocion
   examples: |
@@ -50,6 +50,7 @@ nlu:
     - energético
     - eufórico
     - emocionado
+    - tranquilo
 
 - synonym: negativo
   examples: |
@@ -61,6 +62,7 @@ nlu:
     - ansioso
     - estresado
     - molesto
+    - inseguro
 
 - synonym: neutro
   examples: |

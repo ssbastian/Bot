@@ -55,7 +55,7 @@ responses:
   utter_ofrecer_feedback:
     - text: "Antes de irte, ¿te gustaría responder 3 preguntas rápidas sobre tu experiencia? (sí/no)"
   utter_pregunta_1:
-    - text: "¿Te sentiste mejor de la interacción con el bot?"
+    - text: "¿Te sentiste mejor despues de la interacción con el bot?"
       buttons:
       - title: "Sí ✅"
         payload: '/int_respuesta_escuesta{{"ent_mejora":"si"}}'

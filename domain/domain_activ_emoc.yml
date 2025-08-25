@@ -1,6 +1,5 @@
 version: '3.1'
 intents:
-- saludo
 - int_expresar_emocion
 - int_si_actividades
 - int_no_actividades
@@ -128,6 +127,11 @@ responses:
       payload: /int_sel_actividadAll{"ent_numActividad":"5"}
     - title: 6️⃣ Bailar 3 canciones
       payload: /int_sel_actividadAll{"ent_numActividad":"6"}
+
+  
+  utter_menu_button_mostrarAll2:
+  - text: 'Elige una opción:'
+    buttons:
     - title: 7️⃣ Empezar un proyecto creativo
       payload: /int_sel_actividadAll{"ent_numActividad":"7"}
     - title: 8️⃣ Hacer una lista de gratitud

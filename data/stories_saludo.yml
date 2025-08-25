@@ -1,0 +1,34 @@
+version: "3.1"
+
+stories:
+
+  ## SALUDOS
+  - story: flujo de saludo nuevo usuario
+    steps:
+      - intent: int_saludo
+      - slot_was_set:
+          - slot_usuario_nuevo: true
+          - ultimo_tema: "preguntando_nombre"  # Nuevo slot
+      - action: utter_presentarse
+      - action: utter_pedir_nombre
+      - intent: int_dar_nombre
+        entities:
+          - ent_person_nombre
+      - action: action_guardar_nombre
+      - slot_was_set:
+          - ultimo_tema: "preguntando_emocion"  # Actualización
+      - action: action_preguntar_emocion
+      # - intent: int_expresar_emocion
+      # - action: action_reaccionar_emocion2
+
+
+  - story: flujo de saludo usuario conocido
+    steps:
+      - intent: int_saludo
+      - slot_was_set:
+          - slot_usuario_nuevo: false
+          - ultimo_tema: "preguntando_emocion"  # Nuevo slot
+      - action: utter_saludo_con_nombre
+      - action: action_preguntar_emocion # muestra botones de emociones
+      # - intent: int_expresar_emocion
+      # - action: action_reaccionar_emocion2

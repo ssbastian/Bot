@@ -1,11 +1,12 @@
 version: '3.1'
 intents:
+- int_saludo
+- int_dar_nombre
+- int_expresar_emocion
 - int_despedirse
 - int_si_despedida
 - int_no_despedida
 - int_respuesta_escuesta
-- saludo
-- int_expresar_emocion
 - int_si_actividades
 - int_no_actividades
 - int_sel_actividad
@@ -17,16 +18,39 @@ intents:
 - int_pedir_escucha
 - int_actividades_mostrarAll
 entities:
+- ent_person_nombre
+- ent_emocion
 - ent_mejora
 - ent_satisfaccion
 - ent_recomendacion
-- ent_emocion
 - ent_numActividad
-- ent_person_nombre
 - ent_tipo_alternativa
 - ent_tipo_recurso
 - ent_actividades_all
 slots:
+  slot_usuario_nuevo:
+    type: bool
+    initial_value: true
+    influence_conversation: true
+    mappings:
+    - type: custom
+  slot_name:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: ent_person_nombre
+    influence_conversation: true
+  slot_emocion:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: ent_emocion
+  ultimo_tema:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: custom
   slot_feedback_pendiente:
     type: bool
     initial_value: false
@@ -97,10 +121,64 @@ slots:
       entity: ent_actividades_all
       intent: int_actividades_mostrarAll
 responses:
+  utter_botones:
+  - text: Hola estos son los botonoes
+  utter_presentarse:
+  - text: Hola, soy un bot prototipo creado para apoyar a personas introvertidas con sus habilidades comunicacionales especificamente en situaciones sociales. Estoy aquí para escucharte y ofrecerte consejos útiles. 😊
+  utter_pedir_nombre:
+  - text: ¿cómo te llamas?
+  utter_saludo_con_nombre:
+  - text: ¡Hola de nuevo, {slot_name}! Me alegra verte otra vez por aquí. ¿Qué tal te ha ido desde nuestra última charla?
+  utter_ya_saludado:
+  - text: ¡Hola de nuevo! ¿Cómo te puedo ayudar ahora?
+  utter_saludo_nombre:
+  - text: ¡{slot_name}! Me alegra verte por aquí.
+  utter_solicitar_emocion_libre:
+  - text: Claro, cuéntame con tus propias palabras cómo te sientes.
+  utter_opciones_post_emocion:
+  - text: ¿Qué quieres hacer ahora? Puedes pedirme un consejo, contarme algo o simplemente charlar. 😊
+  utter_ofrecer_ayuda:
+  - text: Claro, estoy aquí para ayudarte 😊 ¿Sobre qué tema te gustaría hablar? Puedo darte consejos o simplemente escucharte.
+  utter_iniciar_conversacion_ligera:
+  - text: ¡Por supuesto! A veces es bueno desconectarse un poco. ¿Te gustaría que hablemos de hobbies, películas o algo que te relaje?
+  utter_consejos_sociales:
+  - text: Un buen primer paso es practicar pequeñas conversaciones. Puedes empezar saludando o preguntando algo simple como '¿Cómo va tu día?'. La clave es no presionarte demasiado 😊 ¿Quieres que te comparta algunos ejemplos prácticos?
+  utter_default:
+  - text: Lo siento, no entendí bien eso. ¿Podrías reformularlo o preguntarme algo relacionado con la ansiedad social?
+  utter_ofrecer_recursos:
+  - text: Si necesitas ayuda profesional, puedo ofrecerte recursos o conectarte con un especialista. ¿Te gustaría eso?
+  utter_preguntar_continuar:
+  - text: ¿Quieres continuar con lo anterior o prefieres cambiar de tema?
+    buttons:
+    - title: Continuar
+      payload: /continuar
+    - title: Cambiar
+      payload: /cambiar_tema
+  utter_retomar_ultimo_tema:
+  - text: 'Volvamos a lo tuyo: ¿qué te gustaría hacer ahora? 😊'
+  utter_test_afirmar:
+  - text: ¡Genial! Me alegra que estés de acuerdo. 😊 ¿En qué más puedo ayudarte?xxx
+  utter_test_negar:
+  - text: Entiendo, no hay problema. Si cambias de opinión, aquíxxxx
+  utter_test_feliz_afirmar:
+  - text: ¡que bueno que estes feliz, y que bueno que quieras entrenar
+  utter_test_feliz_negar:
+  - text: ¡que bueno que estes feliz, pero que mal que no quieras entrenar
+  utter_ok_sin_ayuda:
+  - text: Perfecto 👍, entonces seguimos conversando de lo que quieras.
+  utter_respetar_decision:
+  - text: Entiendo, respeto tu decisión. Si cambias de opinión o necesitas algo más, aquí estaré para ayudarte.
+  utter_ofrecer_opciones:
+  - text: Podemos probar otra actividad o simplemente conversar. ¿Qué prefieres?
+    buttons:
+    - title: Otra actividad
+      payload: /otra_actividad
+    - title: Conversar
+      payload: /conversar
   utter_ofrecer_feedback:
   - text: Antes de irte, ¿te gustaría responder 3 preguntas rápidas sobre tu experiencia? (sí/no)
   utter_pregunta_1:
-  - text: ¿Te sentiste mejor de la interacción con el bot?
+  - text: ¿Te sentiste mejor despues de la interacción con el bot?
     buttons:
     - title: Sí ✅
       payload: /int_respuesta_escuesta{{"ent_mejora":"si"}}
@@ -144,8 +222,6 @@ responses:
   - text: elegiste emocion neutra.
   utter_ofrecer_actividad:
   - text: Tengo varias opciones que podrían ayudarte. ¿Quieres que te muestre algunas actividades adecuadas para tu estado animico
-  utter_respetar_decision:
-  - text: Entiendo, respeto tu decisión. Si cambias de opinión o necesitas algo más, aquí estaré para ayudarte.
   utter_menu_list_actividadesN:
   - text: 'Opcones para momentos dificiles:
 
@@ -255,6 +331,9 @@ responses:
       payload: /int_sel_actividadAll{"ent_numActividad":"5"}
     - title: 6️⃣ Bailar 3 canciones
       payload: /int_sel_actividadAll{"ent_numActividad":"6"}
+  utter_menu_button_mostrarAll2:
+  - text: 'Elige una opción:'
+    buttons:
     - title: 7️⃣ Empezar un proyecto creativo
       payload: /int_sel_actividadAll{"ent_numActividad":"7"}
     - title: 8️⃣ Hacer una lista de gratitud
@@ -528,6 +607,8 @@ responses:
   utter_cerrar_escucha:
   - text: "Gracias por compartirlo conmigo.  \n¿Quieres que ahora te sugiera alguna actividad, o prefieres terminar por hoy?\n"
 actions:
+- action_guardar_nombre
+- action_preguntar_emocion
 - action_deactivate_feedback
 - action_verificar_feedback
 - action_filtrar_opciones
@@ -536,3 +617,6 @@ actions:
 - action_manejar_alternativas
 - action_entrega_recurso_sel
 - action_responder_escucha_activa
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

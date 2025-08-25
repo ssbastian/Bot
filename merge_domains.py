@@ -7,6 +7,7 @@ def merge_domain_files():
     """Une los archivos domain según TU estructura preferida"""
     
     domain_files = [
+        'domain/domain_saludo.yml',
         'domain/domain_despedida.yml',
         'domain/domain_activ_emoc.yml',
         'domain/domain_alternativas.yml', 
