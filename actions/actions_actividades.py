@@ -42,6 +42,54 @@ class ActionFiltrarOpciones(Action):
         return []
     
 
+# class ActionEjecutarOpcion(Action):
+#     def name(self) -> Text:
+#         return "custom_action_ejecutar_opcion"
+
+#     def run(self, dispatcher: CollectingDispatcher, 
+#             tracker: Tracker, 
+#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+#         # 1. Obtener la emoción actual del slot
+#         varEmocion = tracker.get_slot("slot_tipo_emocion")
+        
+#         # 2. Extraer el número seleccionado (de entidades o botones)
+#         varNumero = next(tracker.get_latest_entity_values("ent_numActividad"), None)
+#         print(f"NUMEROO: {varNumero}")
+        
+#         # 3. Mapeo de opciones por emoción
+#         opciones = {
+#             "negativo": {
+#                 "1": "utter_detalle_respiracion",
+#                 "2": "utter_detalle_escritura",
+#                 "3": "utter_detalle_audio",
+#                 "4": "utter_detalle_estiramientos"
+#             },
+#             "positivo": {
+#                 "1": "utter_detalle_baile",
+#                 "2": "utter_detalle_gratitud",
+#                 "3": "utter_detalle_proyecto",
+#                 "4": "utter_detalle_compartir"
+#             },
+#             "neutro": {
+#                 "1": "utter_detalle_meditacion",
+#                 "2": "utter_detalle_organizar",
+#                 "3": "utter_detalle_leer",
+#                 "4": "utter_detalle_hidratacion"
+#             }
+#         }
+
+#         # 4. Validación y respuesta
+#         if not varEmocion or not varNumero:
+#             dispatcher.utter_message(text="No detecté tu selección. Por favor elige una opción válida.")
+#         elif varEmocion in opciones and varNumero in opciones[varEmocion]:
+#             dispatcher.utter_message(response=opciones[varEmocion][varNumero])
+#         else:
+#             dispatcher.utter_message(text=f"⚠️ La opción {varNumero} no está disponible para emociones {varEmocion}.")
+
+#         return []
+    
+
 class ActionEjecutarOpcion(Action):
     def name(self) -> Text:
         return "custom_action_ejecutar_opcion"
@@ -57,38 +105,42 @@ class ActionEjecutarOpcion(Action):
         varNumero = next(tracker.get_latest_entity_values("ent_numActividad"), None)
         print(f"NUMEROO: {varNumero}")
         
-        # 3. Mapeo de opciones por emoción
+        # 3. Mapeo de opciones por emoción con acción y actividad
         opciones = {
             "negativo": {
-                "1": "utter_detalle_respiracion",
-                "2": "utter_detalle_escritura",
-                "3": "utter_detalle_audio",
-                "4": "utter_detalle_estiramientos"
+                "1": {"accion": "utter_detalle_respiracion", "actividad": "respiracion"},
+                "2": {"accion": "utter_detalle_escritura", "actividad": "escritura"},
+                "3": {"accion": "utter_detalle_audio", "actividad": "audio"},
+                "4": {"accion": "utter_detalle_estiramientos", "actividad": "estiramientos"}
             },
             "positivo": {
-                "1": "utter_detalle_baile",
-                "2": "utter_detalle_gratitud",
-                "3": "utter_detalle_proyecto",
-                "4": "utter_detalle_compartir"
+                "1": {"accion": "utter_detalle_baile", "actividad": "baile"},
+                "2": {"accion": "utter_detalle_gratitud", "actividad": "gratitud"},
+                "3": {"accion": "utter_detalle_proyecto", "actividad": "proyecto"},
+                "4": {"accion": "utter_detalle_compartir", "actividad": "compartir"}
             },
             "neutro": {
-                "1": "utter_detalle_meditacion",
-                "2": "utter_detalle_organizar",
-                "3": "utter_detalle_leer",
-                "4": "utter_detalle_hidratacion"
+                "1": {"accion": "utter_detalle_meditacion", "actividad": "meditacion"},
+                "2": {"accion": "utter_detalle_organizar", "actividad": "organizar"},
+                "3": {"accion": "utter_detalle_leer", "actividad": "leer"},
+                "4": {"accion": "utter_detalle_hidratacion", "actividad": "hidratacion"}
             }
         }
 
         # 4. Validación y respuesta
         if not varEmocion or not varNumero:
             dispatcher.utter_message(text="No detecté tu selección. Por favor elige una opción válida.")
-        elif varEmocion in opciones and varNumero in opciones[varEmocion]:
-            dispatcher.utter_message(response=opciones[varEmocion][varNumero])
-        else:
-            dispatcher.utter_message(text=f"⚠️ La opción {varNumero} no está disponible para emociones {varEmocion}.")
-
+            return []
+        
+        if varEmocion in opciones and varNumero in opciones[varEmocion]:
+            seleccion = opciones[varEmocion][varNumero]
+            dispatcher.utter_message(response=seleccion["accion"])
+            # Devolver SlotSet para guardar la actividad elegida
+            return [SlotSet("slot_ejercicio_actual", seleccion["actividad"])]
+        
+        dispatcher.utter_message(text=f"⚠️ La opción {varNumero} no está disponible para emociones {varEmocion}.")
         return []
-    
+
     
 #Mostrar todas las actividades 
 from typing import Any, Text, Dict, List
@@ -110,23 +162,26 @@ class ActionEjecutarCualquiera(Action):
 
         # 2. Mapeo de las 12 actividades (sin importar emoción)
         actividades = {
-            "1": "utter_detalle_respiracion",
-            "2": "utter_detalle_escritura",
-            "3": "utter_detalle_audio",
-            "4": "utter_detalle_estiramientos",
-            "5": "utter_detalle_baile",
-            "6": "utter_detalle_gratitud",
-            "7": "utter_detalle_proyecto",
-            "8": "utter_detalle_compartir",
-            "9": "utter_detalle_meditacion",
-            "10": "utter_detalle_organizar",
-            "11": "utter_detalle_leer",
-            "12": "utter_detalle_hidratacion"
+            "1":  {"accion": "utter_detalle_respiracion",    "actividad": "respiracion"},
+            "2":  {"accion": "utter_detalle_escritura",      "actividad": "escritura"},
+            "3":  {"accion": "utter_detalle_audio",          "actividad": "audio"},
+            "4":  {"accion": "utter_detalle_estiramientos",  "actividad": "estiramientos"},
+            "5":  {"accion": "utter_detalle_baile",          "actividad": "baile"},
+            "6":  {"accion": "utter_detalle_gratitud",       "actividad": "gratitud"},
+            "7":  {"accion": "utter_detalle_proyecto",       "actividad": "proyecto"},
+            "8":  {"accion": "utter_detalle_compartir",      "actividad": "compartir"},
+            "9":  {"accion": "utter_detalle_meditacion",     "actividad": "meditacion"},
+            "10": {"accion": "utter_detalle_organizar",      "actividad": "organizar"},
+            "11": {"accion": "utter_detalle_leer",           "actividad": "leer"},
+            "12": {"accion": "utter_detalle_hidratacion",    "actividad": "hidratacion"},
         }
 
         # 3. Verificar si el número existe en el diccionario
         if varNumero and varNumero in actividades:
-            dispatcher.utter_message(response=actividades[varNumero])
+            seleccion = actividades[varNumero]
+            dispatcher.utter_message(response=seleccion["accion"])
+            return [SlotSet("slot_ejercicio_actual", seleccion["actividad"])]
+            
         else:
             dispatcher.utter_message(text="Lo siento, no reconozco esa actividad. Elige un número del 1 al 12.")
         
@@ -310,7 +365,7 @@ class ActionEjercicioDetallado(Action):
             text=texto_con_refuerzo,
             buttons=[{
                 "title": titulo_boton,
-                "payload": f'/paso_listo{{"slot_paso_actual": {paso_siguiente}}}'
+                "payload": f'/int_paso_listo{{"ent_paso_actual": {paso_siguiente}}}'
             }]
         )
 

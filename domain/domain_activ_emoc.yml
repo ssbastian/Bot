@@ -216,6 +216,7 @@ entities:
   #actividades detalladas
   - ent_ejercicio_actual
   - ent_actividad
+  - ent_paso_actual
 
 slots:
   slot_tipo_emocion:
@@ -250,12 +251,13 @@ slots:
         intent: int_sel_actividad
         value: "seleccion_ejercicio"
   
-  slot_paso_actual: #si
+  slot_paso_actual:
     type: float
     initial_value: 0
     influence_conversation: false
     mappings:
-      - type: custom
+      - type: from_entity
+        entity: ent_paso_actual
 actions:
 - action_filtrar_opciones
 - custom_action_ejecutar_opcion

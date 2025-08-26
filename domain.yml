@@ -31,6 +31,7 @@ entities:
 - ent_numActividad
 - ent_ejercicio_actual
 - ent_actividad
+- ent_paso_actual
 - ent_tipo_alternativa
 - ent_tipo_recurso
 - ent_actividades_all
@@ -116,7 +117,8 @@ slots:
     initial_value: 0
     influence_conversation: false
     mappings:
-    - type: custom
+    - type: from_entity
+      entity: ent_paso_actual
   slot_tipo_alternativa:
     type: text
     mappings:

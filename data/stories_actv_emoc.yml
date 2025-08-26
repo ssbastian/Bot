@@ -80,3 +80,45 @@ stories:
   # - action: action_guardar_progreso  # Guarda slots en DB
   # - action: utter_despedida_final
   #   text: "Gracias por compartir. ¡Hasta pronto!"
+
+
+
+  
+## ==========Flujo PARA ACTIVIDADES DETALLADAS==========
+- story: str_ejercicios_Detallados
+  steps:
+    - intent: int_solicitar_guia # solicitar ejercicio mas detallado
+    - action: utter_TEST
+    # - intent: int_elegir_activ_completa
+    - slot_was_set:
+        - slot_ejercicio_actual: "respiracion"
+    - action: utter_TEST
+    - action: action_ejercicio_detallado
+    - intent: int_paso_listo
+    - action: action_ejercicio_detallado
+    - intent: int_paso_listo
+    - action: action_ejercicio_detallado
+    - intent: int_paso_listo
+    - action: action_ejercicio_detallado
+
+- story: str_ejercicios_Detallados_desde_NLU
+  steps:
+    - intent: int_elegir_activ_completa
+      entities:
+        - ent_ejercicio_actual: "respiracion" #slot_ejercicio_actual
+    - action: utter_TEST
+    - action: action_ejercicio_detallado
+    - intent: int_paso_listo
+    - action: action_ejercicio_detallado
+    - intent: int_paso_listo
+    - action: action_ejercicio_detallado
+    - intent: int_paso_listo
+    - action: action_ejercicio_detallado
+
+- story: str_no_ejercicios_Detallados
+  steps:
+    - intent: int_intentar_solo # solicitar ejercicio mas detallado
+    - action: utter_no_detallar_ejercicios
+    #- intent: utter_ofrecer_alternativas
+
+

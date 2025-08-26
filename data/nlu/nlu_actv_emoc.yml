@@ -111,11 +111,11 @@ nlu:
     - [la cuarta](ent_numActividad)
 
 
-- intent: int_elegir_actividad
+- intent: int_elegir_activ_completa
   examples: |
     - [respiracion](ent_ejercicio_actual)
-    - [estiramientos](ent_ejercicio_actual)
-    - [meditacion](ent_ejercicio_actual)
+    - quiero hacer ejercicios de [estiramientos](ent_ejercicio_actual)
+    - podríamos hacer algo de [meditacion](ent_ejercicio_actual)
     - [escritura](ent_ejercicio_actual)
     - [visualizacion](ent_ejercicio_actual)
     - [caminar](ent_ejercicio_actual)
