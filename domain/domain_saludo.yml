@@ -99,7 +99,7 @@ responses:
   utter_test_afirmar:
     - text: "¡Genial! Me alegra que estés de acuerdo. 😊 ¿En qué más puedo ayudarte?xxx"
   utter_test_negar:
-    - text: "Entiendo, no hay problema. Si cambias de opinión, aquíxxxx"
+    - text: "Entiendo, no hay problema. Si cambias de opinión, aquí"
 
   utter_test_feliz_afirmar:
     - text: "¡que bueno que estes feliz, y que bueno que quieras entrenar"

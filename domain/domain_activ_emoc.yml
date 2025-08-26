@@ -1,10 +1,21 @@
 version: '3.1'
 intents:
-- int_expresar_emocion
-- int_si_actividades
-- int_no_actividades
-- int_sel_actividad
-- int_sel_actividadAll
+  - int_expresar_emocion
+  - int_si_actividades
+  - int_no_actividades
+  - int_sel_actividad
+  - int_sel_actividadAll
+
+
+
+    #detalle ACTIVIDADES
+  - int_elegir_activ_completa
+  - int_paso_listo
+  - int_finalizar_ejercicio
+  - int_solicitar_guia
+  - int_intentar_solo
+
+
 
 responses:
   utter_TEST:
@@ -87,11 +98,22 @@ responses:
       payload: '/int_actividades_mostrarAll{{"ent_actividades_all": "false"}}'
               
                 
+  utter_profundizar_actividades:
+  - text: "¿Necesitas una guía paso a paso o prefieres intentarlo por tu cuenta?"
+    buttons:
+      - title: "➡️Guía paso a paso"
+        payload: "/int_solicitar_guia"
+      - title: "➡️Intentarlo por mi cuenta"
+        payload: "/int_intentar_solo"
 
-  
-  utter_profundizar:
-  - text: ¿Necesitas una guía paso a paso o prefieres intentarlo por tu cuenta?
-  
+  utter_no_detallar_ejercicios:
+  - text: "Si en algún momento quieres que te guíe, solo dímelo y con gusto te ayudo"
+  - text: “¡Estoy seguro de que lo harás genial 💪! Lo importante no es la perfección, sino darte la oportunidad de intentarlo”
+  - text: “Perfecto, confío en que puedes hacerlo bien a tu manera 🙌. Recuerda que lo importante es que te sientas cómodo/a con la actividad”
+
+  utter_ofrecer_alternativas:
+  - text: "Entonces te gustaria mirar las otras alternativas que tengo por ahora? si/no"
+
 
   utter_menu_mostrarAll:
   - text: |
@@ -187,9 +209,14 @@ responses:
   - text: Veo que esto te afecta. ¿Quieres que exploremos juntos una solución?
 
 entities:
-- ent_emocion
-- ent_numActividad
-# - recurso
+  - ent_emocion
+  - ent_numActividad
+  # - recurso
+
+  #actividades detalladas
+  - ent_ejercicio_actual
+  - ent_actividad
+
 slots:
   slot_tipo_emocion:
     type: categorical
@@ -208,8 +235,30 @@ slots:
     mappings:
     - type: from_entity
       entity: ent_numActividad
+
+
+
+
+  #actividades detalladas
+  slot_ejercicio_actual: #si
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: ent_ejercicio_actual
+      - type: from_intent
+        intent: int_sel_actividad
+        value: "seleccion_ejercicio"
+  
+  slot_paso_actual: #si
+    type: float
+    initial_value: 0
+    influence_conversation: false
+    mappings:
+      - type: custom
 actions:
 - action_filtrar_opciones
 - custom_action_ejecutar_opcion
 - custom_action_ejecutar_cualquiera
 - action_mostrar_menu_all
+- action_ejercicio_detallado

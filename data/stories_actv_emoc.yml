@@ -53,7 +53,7 @@ stories:
   - intent: int_sel_actividad #botones [opcion1] [opcion2] [opcion3] [opcion4]
   # - action: utter_opcion_prueba
   - action: custom_action_ejecutar_opcion
-  - action: utter_profundizar
+  - action: utter_profundizar_actividades
 
   # - intent: int_si_actividades
   # - action: action_ejecutar_guia_interactiva

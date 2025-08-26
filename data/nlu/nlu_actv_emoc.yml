@@ -1,19 +1,8 @@
 version: "3.1"
 
 nlu:
-# - intent: saludo
-#   examples: |
-#     - hola
-#     - buenos días
-#     - buenas tardes
-#     - buenas noches
-#     - qué tal
-#     - cómo estás
-#     - qué hay
-#     - qué pasa
-#     - qué onda
-#     - qué hubo
-#     - saludos
+
+
 
 - intent: int_expresar_emocion
   examples: |
@@ -121,3 +110,49 @@ nlu:
     - [cuatro](ent_numActividad)
     - [la cuarta](ent_numActividad)
 
+
+- intent: int_elegir_actividad
+  examples: |
+    - [respiracion](ent_ejercicio_actual)
+    - [estiramientos](ent_ejercicio_actual)
+    - [meditacion](ent_ejercicio_actual)
+    - [escritura](ent_ejercicio_actual)
+    - [visualizacion](ent_ejercicio_actual)
+    - [caminar](ent_ejercicio_actual)
+    - [musica](ent_ejercicio_actual)
+    - [gratitud](ent_ejercicio_actual)
+    - [lectura](ent_ejercicio_actual)
+    - [afirmaciones](ent_ejercicio_actual)
+    - [dibujar](ent_ejercicio_actual)
+    - [juego](ent_ejercicio_actual)
+- intent: int_paso_listo
+  examples: |
+    - listo
+    - ya
+    - terminado
+    - siguiente
+    - continuemos
+    - hecho
+- intent: int_finalizar_ejercicio
+  examples: |
+    - terminé
+    - ya acabé
+    - listo
+    - finalizado
+    - eso es todo
+
+- intent: solicitar_guia
+  examples: |
+    - quiero la guía
+    - dame el paso a paso
+    - guía paso a paso
+    - necesito ayuda
+    - muéstrame la guía
+
+- intent: intentar_solo
+  examples: |
+    - lo intento por mi cuenta
+    - prefiero hacerlo solo
+    - intentaré yo mismo
+    - sin guía
+    - quiero hacerlo solo

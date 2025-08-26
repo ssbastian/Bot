@@ -50,6 +50,18 @@ nlu:
     - Frank
     - Felipe
     - Miguel Ángel
+    - Ricardo
+    - Natalia
+    - Jimena
+    - Ximena
+    - Luis
+    - Octavio
+    - Elisa
+    - Yesid
+    - Cesar
+    - Andres
+    - María
+    - Mateo
 
 
 - intent: int_saludo

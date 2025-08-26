@@ -2,6 +2,8 @@ version: "3.1"
 
 rules:
 
+  
+
   - rule: rul_menu_alternativas
     steps:
       - intent: int_llamar_menu_alternativas
@@ -48,4 +50,7 @@ rules:
     steps: 
     - intent: int_sel_actividadAll
     - action: custom_action_ejecutar_cualquiera
-    - action: utter_profundizar
+    - action: utter_profundizar_actividades
+
+
+

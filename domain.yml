@@ -11,6 +11,11 @@ intents:
 - int_no_actividades
 - int_sel_actividad
 - int_sel_actividadAll
+- int_elegir_activ_completa
+- int_paso_listo
+- int_finalizar_ejercicio
+- int_solicitar_guia
+- int_intentar_solo
 - int_llamar_menu_alternativas
 - int_menu_sel_alternativa
 - int_menu_sel_recurso
@@ -24,6 +29,8 @@ entities:
 - ent_satisfaccion
 - ent_recomendacion
 - ent_numActividad
+- ent_ejercicio_actual
+- ent_actividad
 - ent_tipo_alternativa
 - ent_tipo_recurso
 - ent_actividades_all
@@ -95,6 +102,21 @@ slots:
     mappings:
     - type: from_entity
       entity: ent_numActividad
+  slot_ejercicio_actual:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_entity
+      entity: ent_ejercicio_actual
+    - type: from_intent
+      intent: int_sel_actividad
+      value: seleccion_ejercicio
+  slot_paso_actual:
+    type: float
+    initial_value: 0
+    influence_conversation: false
+    mappings:
+    - type: custom
   slot_tipo_alternativa:
     type: text
     mappings:
@@ -159,7 +181,7 @@ responses:
   utter_test_afirmar:
   - text: ¡Genial! Me alegra que estés de acuerdo. 😊 ¿En qué más puedo ayudarte?xxx
   utter_test_negar:
-  - text: Entiendo, no hay problema. Si cambias de opinión, aquíxxxx
+  - text: Entiendo, no hay problema. Si cambias de opinión, aquí
   utter_test_feliz_afirmar:
   - text: ¡que bueno que estes feliz, y que bueno que quieras entrenar
   utter_test_feliz_negar:
@@ -282,11 +304,22 @@ responses:
     - title: Botón 4
       payload: /int_sel_actividad{{"ent_numActividad":"4"}}
     - title: Ver todas las actividades
-      payload: '/int_actividades_mostrarAll{"ent_actividades_all": "false"}'
-  utter_profundizar:
+      payload: '/int_actividades_mostrarAll{{"ent_actividades_all": "false"}}'
+  utter_profundizar_actividades:
   - text: ¿Necesitas una guía paso a paso o prefieres intentarlo por tu cuenta?
+    buttons:
+    - title: ➡️Guía paso a paso
+      payload: /int_solicitar_guia
+    - title: ➡️Intentarlo por mi cuenta
+      payload: /int_intentar_solo
+  utter_no_detallar_ejercicios:
+  - text: Si en algún momento quieres que te guíe, solo dímelo y con gusto te ayudo
+  - text: “¡Estoy seguro de que lo harás genial 💪! Lo importante no es la perfección, sino darte la oportunidad de intentarlo”
+  - text: “Perfecto, confío en que puedes hacerlo bien a tu manera 🙌. Recuerda que lo importante es que te sientas cómodo/a con la actividad”
+  utter_ofrecer_alternativas:
+  - text: Entonces te gustaria mirar las otras alternativas que tengo por ahora? si/no
   utter_menu_mostrarAll:
-  - text: 'Estas son todas las actividades disponibles:
+  - text: 'Mira {slot_name} estas son todas las actividades que tengo disponibles:
 
       1️⃣ Respiración 4-7-8 (2 min)
 
@@ -609,9 +642,10 @@ actions:
 - custom_action_ejecutar_opcion
 - custom_action_ejecutar_cualquiera
 - action_mostrar_menu_all
+- action_ejercicio_detallado
 - action_manejar_alternativas
 - action_entrega_recurso_sel
 - action_responder_escucha_activa
 session_config:
-  session_expiration_time: 60
+  session_expiration_time: 20
   carry_over_slots_to_new_session: true

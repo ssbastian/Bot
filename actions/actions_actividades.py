@@ -7,6 +7,7 @@
 
 # This is a simple example for a custom action which utters "Hello World!"
 
+import random
 from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
@@ -178,128 +179,139 @@ class ActionMostrarMenuAll(Action):
         dispatcher.utter_message(json_message=mensaje)
         return []
 
-## ==============================================
-## Flujos NEGACION actividades
-## ==============================================
-
-# class ActionEscuchaActiva(Action):
-#     def name(self) -> Text:
-#         return "action_escucha_activa"
-
-#     def run(self, dispatcher, tracker, domain):
-#         # Obtener el último mensaje del usuario
-#         user_message = tracker.latest_message.get('text')
-        
-#         # Análisis básico de emociones (puedes mejorar con NLP después)
-#         emotional_words = {
-#             'triste': 'negativo', 
-#             'ansioso': 'negativo',
-#             'feliz': 'positivo',
-#             'bien': 'positivo'
-#         }
-        
-#         detected_emotion = 'neutro'
-#         for word, emotion in emotional_words.items():
-#             if word in user_message.lower():
-#                 detected_emotion = emotion
-#                 break
-        
-#         # Guardar en slots para personalizar respuestas
-#         return [
-#             SlotSet("emocion_detectada", detected_emotion),
-#             #SlotSet("ultimo_mensaje", user_message[:50])  # Guardar fragmento
-#         ]
-   
-   
-# class ActionManejarAlternativas(Action):
-#     def name(self) -> Text:
-#         return "action_manejar_alternativas"
-    
-#     def run(self, dispatcher, tracker, domain):
-#         opcion = tracker.get_slot("opcion_alternativas")  # Lee el slot específico
-        
-#         if opcion == "sentimientos":
-#             dispatcher.utter_message(text="sentmimientos select")
-#             #dispatcher.utter_message(response="utter_submenu_sentimientos")
-#         elif opcion == "recursos":
-#             dispatcher.utter_message(text="articulo seleccionado")
-#             #dispatcher.utter_message(response="utter_submenu_recursos")
-#         else:
-#             dispatcher.utter_message(text="Opción no reconocida.")
-        
-#         return [SlotSet("opcion_alternativas", None)]  # Limpia el slot después de usarlo   
 
 
 
-## Seleccion y entrega de recurso      
 
-# class ActionEntregarRecursoSeleccionado(Action):
-#     def name(self) -> Text:
-#         return "action_entregar_recurso_seleccionado"
 
-#     def run(self, dispatcher: CollectingDispatcher,
-#             tracker: Tracker,
-#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-#         tipo_recurso = tracker.get_slot("tipo_recurso")
-        
-#         recursos = {
-#             "meditacion_recurso": {
-#                 "text": "Aquí tienes una meditación guiada de 5 minutos: [enlace]",
-#                 "image": "https://ejemplo.com/meditacion.jpg"
-#             },
-#             "respiración_recurso": {
-#                 "text": "Ejercicios de respiración para calmar la ansiedad: [enlace]",
-#                 "image": "https://ejemplo.com/respiracion.jpg"
-#             },
-#             "articulo_recurso": {
-#                 "text": "Artículo completo sobre manejo emocional: [enlace]",
-#                 "image": "https://ejemplo.com/articulo.jpg"
-#             }
-#         }
-        
-#         recurso = recursos.get(tipo_recurso, recursos["meditacion"])
-        
-#         dispatcher.utter_message(
-#             text=recurso["text"],
-#             image=recurso["image"]
-#         )
-        
-#         return [SlotSet("tipo_recurso", None)]  # Limpia el slot después de usarlo
-    
-    
+# ========================================ACTIVIDADES DETALLADAS =========================================================
 
-# class ActionEntregarRecurso(Action):
-#     def name(self) -> Text:
-#         return "action_entregar_recurso"
 
-#     def run(self, dispatcher, tracker, domain):
-#         # Obtener tipo de recurso desde el intent
-#         resource_type = next(tracker.get_latest_entity_values("tipo_recurso"), "meditacion")
-        
-#         # Base de datos simple (puedes usar JSON/DB después)
-#         resources = {
-#             "meditacion": {
-#                 "type": "audio",
-#                 "url": "https://ejemplo.com/meditacion-5min.mp3",
-#                 "text": "Meditación guiada para calmar la mente"
-#             },
-#             "respiracion": {
-#                 "type": "video",
-#                 "url": "https://ejemplo.com/respiracion-4-7-8.mp4",
-#                 "text": "Técnica 4-7-8 para reducir ansiedad"
-#             }
-#         }
-        
-#         # Enviar recurso al usuario
-#         resource = resources.get(resource_type, resources["meditacion"])
-        
-#         if resource["type"] == "audio":
-#             dispatcher.utter_message(text=resource["text"])
-#             dispatcher.utter_message(attachment=resource["url"])
-#         else:
-#             dispatcher.utter_message(text=f"Aquí tienes: {resource['text']}")
-#             dispatcher.utter_message(image=resource["url"])
-        
-#         # Registrar estadísticas
-#         return [SlotSet("ultimo_recurso", resource_type)]
+EJERCICIOS_DETALLADOS = {
+    "respiracion": [
+        {"texto": "Siéntate derecho, relaja los hombros y coloca las manos sobre tus piernas.", "boton": "➡️ Comenzar"},
+        {"texto": "Inhala lentamente por la nariz durante 4 segundos.", "boton": "✅ Inhalé"},
+        {"texto": "Mantén la respiración durante 7 segundos.", "boton": "✅ Mantuve"},
+        {"texto": "Exhala despacio por la boca durante 8 segundos.", "boton": "✅ Exhalé"},
+        {"texto": "Repite 3 veces, sintiendo cómo tu cuerpo se relaja.", "boton": "👌 Listo"}
+    ],
+    "escritura": [
+        {"texto": "Encuentra un lugar tranquilo y sin distracciones.", "boton": "➡️ Siguiente"},
+        {"texto": "Escribe lo que sientes durante 10 minutos, sin preocuparte por ortografía o estructura.", "boton": "📝 Terminé"},
+        {"texto": "Permítete expresar cualquier emoción que surja.", "boton": "👌 Listo"}
+    ],
+    "audio": [
+        {"texto": "Busca un audio de meditación guiada o sonidos de la naturaleza.", "boton": "🎧 Reproducir"},
+        {"texto": "Siéntate o recuéstate cómodamente.", "boton": "😌 Estoy listo"},
+        {"texto": "Escucha durante 5 minutos, concentrándote en tu respiración.", "boton": "👌 Terminé"}
+    ],
+    "estiramientos": [
+        {"texto": "Ponte de pie y relaja los hombros.", "boton": "➡️ Siguiente"},
+        {"texto": "Realiza movimientos suaves de cuello, hombros, brazos y espalda durante 2-3 minutos.", "boton": "✅ Hecho"},
+        {"texto": "Respira profundamente mientras te estiras.", "boton": "👌 Listo"}
+    ],
+    "baile": [
+        {"texto": "Elige una canción que te guste.", "boton": "🎵 Listo"},
+        {"texto": "Muévete a tu ritmo, sin preocuparte por cómo se ve.", "boton": "💃 Bailando"},
+        {"texto": "Disfruta de cada movimiento y concéntrate en la música.", "boton": "👌 Terminé"}
+    ],
+    "gratitud": [
+        {"texto": "Toma papel y lápiz.", "boton": "📝 Listo"},
+        {"texto": "Escribe 3 cosas por las que te sientas agradecido hoy.", "boton": "🙏 Hecho"},
+        {"texto": "Pueden ser detalles pequeños o grandes logros.", "boton": "👌 Terminé"}
+    ],
+    "proyecto": [
+        {"texto": "Elige una actividad creativa: dibujar, escribir, cocinar, etc.", "boton": "🎨 Listo"},
+        {"texto": "Dedica 15 minutos a disfrutar el proceso.", "boton": "⌛ Terminé"},
+        {"texto": "Concéntrate en tu disfrute, sin presionarte.", "boton": "👌 Hecho"}
+    ],
+    "compartir": [
+        {"texto": "Piensa en alguien cercano.", "boton": "🤔 Lo tengo"},
+        {"texto": "Envía un mensaje amable o de agradecimiento.", "boton": "💌 Enviado"},
+        {"texto": "Observa cómo este gesto te hace sentir.", "boton": "👌 Listo"}
+    ],
+    "meditacion": [
+        {"texto": "Siéntate cómodamente y cierra los ojos.", "boton": "🧘 Estoy listo"},
+        {"texto": "Concéntrate en tu respiración durante 3 minutos.", "boton": "⌛ Terminé"},
+        {"texto": "Observa tus pensamientos sin juzgarlos.", "boton": "👌 Listo"}
+    ],
+    "organizar": [
+        {"texto": "Escoge un área pequeña: escritorio, habitación o cajón.", "boton": "📦 Listo"},
+        {"texto": "Ordena y limpia durante unos minutos.", "boton": "🧹 Terminé"},
+        {"texto": "Respira profundo y observa el cambio.", "boton": "👌 Hecho"}
+    ],
+    "leer": [
+        {"texto": "Escoge un libro, artículo o cita breve.", "boton": "📖 Tengo uno"},
+        {"texto": "Lee durante unos minutos.", "boton": "⌛ Terminé"},
+        {"texto": "Concéntrate en el contenido y disfruta de la lectura.", "boton": "👌 Listo"}
+    ],
+    "hidratacion": [
+        {"texto": "Toma un vaso de agua.", "boton": "💧 Listo"},
+        {"texto": "Bébelo lentamente, prestando atención a cada sorbo.", "boton": "🥤 Terminé"},
+        {"texto": "Respira profundo mientras lo haces.", "boton": "👌 Hecho"}
+    ]
+}
+
+# ------------------------------
+# Refuerzos positivos
+# ------------------------------
+REFUERZOS_PASOS = [
+    "💪 ¡Muy bien! Sigamos adelante.",
+    "✨ Estás haciéndolo excelente.",
+    "🌟 Paso a paso vas logrando más calma.",
+    "🙌 Lo estás logrando, continúa así."
+]
+
+REFUERZOS_FINALES = [
+    "🎉 ¡Excelente trabajo, completaste el ejercicio!",
+    "🌸 Cada práctica te ayuda a sentirte mejor.",
+    "💖 Estoy orgulloso de tu esfuerzo, sigue así.",
+    "🌈 Notarás más calma y claridad mental."
+]
+
+# ------------------------------
+# Acción para mostrar pasos
+# ------------------------------
+class ActionEjercicioDetallado(Action):
+    def name(self) -> Text:
+        return "action_ejercicio_detallado"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        varEjercicio = tracker.get_slot("slot_ejercicio_actual")
+        paso = tracker.get_slot("slot_paso_actual") or 0
+
+        if varEjercicio not in EJERCICIOS_DETALLADOS:
+            dispatcher.utter_message(text="No se encontró el ejercicio seleccionado.")
+            return []
+
+        pasos = EJERCICIOS_DETALLADOS[varEjercicio]
+
+        # Caso: ejercicio finalizado
+        if paso >= len(pasos):
+            refuerzo_final = random.choice(REFUERZOS_FINALES)
+            dispatcher.utter_message(text=f"{refuerzo_final} 🌟")
+            return [SlotSet("slot_paso_actual", 0), SlotSet("slot_ejercicio_actual", None)]
+
+        # Obtenemos el paso con texto y botón
+        paso_info = pasos[paso]
+        texto = paso_info["texto"]
+        titulo_boton = paso_info["boton"]
+        paso_siguiente = paso + 1
+
+        # Agregamos un refuerzo positivo al texto del paso
+        refuerzo = random.choice(REFUERZOS_PASOS)
+        texto_con_refuerzo = f"{texto}\n\n{refuerzo}"
+
+        dispatcher.utter_message(
+            text=texto_con_refuerzo,
+            buttons=[{
+                "title": titulo_boton,
+                "payload": f'/paso_listo{{"slot_paso_actual": {paso_siguiente}}}'
+            }]
+        )
+
+        return [SlotSet("slot_paso_actual", paso_siguiente)]
