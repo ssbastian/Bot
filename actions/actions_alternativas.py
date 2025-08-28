@@ -56,7 +56,7 @@ class ActionManejarAlternativas(Action):
             return [SlotSet("slot_tipo_alternativa", None),
                     SlotSet("slot_contexto", None)]
         elif varOpcion == "despedida":
-            dispatcher.utter_message(response="utter_despedida_final")
+            dispatcher.utter_message(response="utter_usuario_se_despiede")
             return [SlotSet("slot_tipo_alternativa", None),
                     SlotSet("slot_contexto", None)]    
         else:
@@ -82,16 +82,16 @@ class ActionEntregaRecursoSel(Action):
         
         recursos = {
             "meditacion": {
-                "text": "Aquí tienes una meditación guiada de 5 minutos: [enlace]",
-                "image": "https://ejemplo.com/meditacion.jpg"
+                "text": "Aquí tienes un articulo sobre meditación guiada: https://introvertdear.com/news/how-meditation-helps-me-thrive-as-an-introvert/"
+              , "image": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400"
             },
             "respiracion": {
-                "text": "Ejercicios de respiración para calmar la ansiedad: [enlace]",
-                "image": "https://ejemplo.com/respiracion.jpg"
+                "text": "Ejercicios de respiración para calmar la ansiedad: https://www.healthline.com/health/anxiety-exercises#thought-cycle",
+                "image": "https://images.unsplash.com/photo-1518604666860-9ed391f76460?w=400"
             },
             "articulo": {
-                "text": "Artículo completo sobre manejo emocional: [enlace]",
-                "image": "https://ejemplo.com/articulo.jpg"
+                "text": "Aquí tienes una guía sobre cómo superar la ansiedad social siendo introvertido:\nhttps://www.happinessinsolitude.com/articles/effective-strategies-overcoming-social-anxiety-introverts/",
+                "image": "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400"
             }
         }
         

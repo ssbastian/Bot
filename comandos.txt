@@ -7,3 +7,5 @@ rasa shell
 rasa run actions
 
 python merge_domains.py
+
+rasa run --enable-api --cors="*"

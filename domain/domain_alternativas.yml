@@ -50,62 +50,61 @@ slots:
 responses:
 
   utter_menu_list_alternativa:
-  - text: |
-      Tengo estas alternativas disponibles para ti:
-      1️⃣ Hablar de cómo te sientes
-      2️⃣ Recibir algún recurso
-      3️⃣ Terminar la conversación
-      ¿Qué número te interesa? dime
+    - text: |
+        Tengo estas alternativas disponibles para ti:
+        1️⃣ Hablar de cómo te sientes
+        2️⃣ Recibir algún recurso
+        3️⃣ Terminar la conversación
+        ¿Qué número te interesa? dime
 
   utter_menu_button_alternativa:
-  - text: "¿Te gustaría en cambio..."
-    buttons:
-    - title: "Hablar de cómo te sientes"
-      payload: '/int_menu_sel_alternativa{{"ent_tipo_alternativa":"sentimientos"}}'
-    - title: "Recibir algún recurso"
-      payload: '/int_menu_sel_alternativa{{"ent_tipo_alternativa":"recursos"}}'
-    - title: "Terminar la conversación"
-      # payload: '/int_despedirse'
-      #payload: "👋 Adiós! Quiero terminar la sesión"
-      payload: '/int_menu_sel_alternativa{{"ent_tipo_alternativa":"despedida"}}'
+    - text: "¿Te gustaría en cambio..."
+      buttons:
+      - title: "Hablar de cómo te sientes"
+        payload: '/int_menu_sel_alternativa{{"ent_tipo_alternativa":"sentimientos"}}'
+      - title: "Recibir algún recurso"
+        payload: '/int_menu_sel_alternativa{{"ent_tipo_alternativa":"recursos"}}'
+      - title: "Terminar la conversación"
+        # payload: '/int_despedirse'
+        #payload: "👋 Adiós! Quiero terminar la sesión"
+        payload: '/int_menu_sel_alternativa{{"ent_tipo_alternativa":"despedida"}}'
 
-  utter_despedida_final:
-  - text: "👋 ¡Adiós! Quiero terminar la sesión" 
+  utter_usuario_se_despiede:
+    - text: "👋 ¡Adiós! Quiero terminar la sesión" 
 
   utter_menu_list_recurso:
-  - text: |
-      Tengo estos recursos disponibles para ti:
-      1️⃣ Meditación guiada (5 min)
-      2️⃣ Ejercicios de respiración
-      3️⃣ Artículo sobre manejo emocional
-      ¿Qué número te interesa? dime
+    - text: |
+        Mirá tengo estos recursos disponibles para ti:
+        1️⃣ Meditación guiada (5 min)
+        2️⃣ Ejercicios de respiración
+        3️⃣ Artículo sobre manejo emocional
 
 
   utter_menu_button_recurso:
-  - text: "Elige una opción:"
-    buttons:
-    - title: "Opcion 1"
-      payload: '/int_menu_sel_recurso{{"ent_tipo_recurso":"meditacion"}}'
-    - title: "Opcion 2"
-      payload: '/int_menu_sel_recurso{{"ent_tipo_recurso":"respiracion"}}'
-    - title: "Opcion 3"
-      payload: '/int_menu_sel_recurso{{"ent_tipo_recurso":"articulo"}}'
+    - text: "{slot_name} ¿qué recurso te gustaria conocer?"
+      buttons:
+      - title: "Opcion 1️⃣ "
+        payload: '/int_menu_sel_recurso{{"ent_tipo_recurso":"meditacion"}}'
+      - title: "Opcion 2️⃣"
+        payload: '/int_menu_sel_recurso{{"ent_tipo_recurso":"respiracion"}}'
+      - title: "Opcion 3️⃣"
+        payload: '/int_menu_sel_recurso{{"ent_tipo_recurso":"articulo"}}'
 
 
   utter_preguntar_feedback:
-  - text: "¿Te gustaría que te enviara un recurso adicional o tienes alguna otra pregunta?"
+    - text: "¿Te gustaría que te enviara un recurso adicional o tienes alguna otra pregunta?"
 
 
   utter_iniciar_escucha:
-  - text: |
-        Entiendo que te has estado sintiendo.  
-        Me gustaría escucharte un poco más...  
-        ¿Quieres contarme qué ha pasado últimamente o qué ha hecho que te sientas así?
+    - text: |
+          Entiendo que te has estado sintiendo.  
+          Me gustaría escucharte un poco más...  
+          ¿Quieres contarme qué ha pasado últimamente o qué ha hecho que te sientas así?
 
   utter_cerrar_escucha:
-  - text: |
-        Gracias por compartirlo conmigo.  
-        ¿Quieres que ahora te sugiera alguna actividad, o prefieres terminar por hoy?
+    - text: |
+          Gracias por compartirlo conmigo.  
+          ¿Quieres que ahora te sugiera alguna actividad, o prefieres terminar por hoy?
 
 actions:
 

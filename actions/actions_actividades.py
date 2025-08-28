@@ -141,6 +141,36 @@ class ActionEjecutarOpcion(Action):
         dispatcher.utter_message(text=f"⚠️ La opción {varNumero} no está disponible para emociones {varEmocion}.")
         return []
 
+class ActionOfrecerActividad(Action):
+    def name(self) -> Text:
+        return "action_ofrecer_actividad"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        varTipoEmocion = tracker.get_slot("slot_tipo_emocion")
+        
+        # Definir los mensajes según la emoción
+        mensajes = {
+            "negativo": "😔 Veo que estás pasando por un momento difícil. ¿Te gustaría probar alguna de estas actividades para sentirte mejor?",
+            "positivo": "😊 ¡Me alegra que te sientas bien! ¿Quieres mantener esa energía positiva con alguna actividad?",
+            "neutro": "😐 Entiendo que te sientes neutral. ¿Te gustaría explorar alguna actividad para equilibrar tu día?"
+        }
+        
+        # Obtener el mensaje o usar uno por defecto
+        mensaje = mensajes.get(varTipoEmocion, "No detecté tu selección. Por favor elige una opción válida.")
+        
+        # Enviar mensaje con botones
+        dispatcher.utter_message(
+            text=mensaje,
+            buttons=[
+                {"title": "✅ Sí, muéstrame actividades", "payload": "/int_si_actividades"},
+                {"title": "❌ No, ahora no", "payload": "/int_no_actividades"}
+            ]
+        )
+        
+        return []
     
 #Mostrar todas las actividades 
 from typing import Any, Text, Dict, List
@@ -222,12 +252,12 @@ class ActionMostrarMenuAll(Action):
         # Convertir actividades en payload para Rasa
         botones = [
             [{"text": act, "callback_data": f'/int_sel_actividadAll{{"ent_numActividad":"{i+1}"}}'} 
-             for i, act in enumerate(actividades)][j:j+4] 
-            for j in range(0, len(actividades), 4)
+             for i, act in enumerate(actividades)][j:j+2] 
+            for j in range(0, len(actividades), 2)
         ]
 
         mensaje = {
-            "text": "Pudes elegir la que mas te llame la atención:",
+            "text": "Elige la que mas te llame la atención:",
             "reply_markup": {"inline_keyboard": botones}
         }
 
@@ -236,7 +266,33 @@ class ActionMostrarMenuAll(Action):
 
 
 
+class ActionMenuSelActividad(Action):
+    def name(self) -> Text:
+        return "action_menu_sel_actividad"
 
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        botones = [
+            [
+                {"text": "🔴 Opción 1", "callback_data": '/int_sel_actividad{"ent_numActividad":"1"}'},
+                {"text": "🟡 Opción 2", "callback_data": '/int_sel_actividad{"ent_numActividad":"2"}'},
+                {"text": "🟢 Opción 3", "callback_data": '/int_sel_actividad{"ent_numActividad":"3"}'}
+            ],
+            [
+                {"text": "⭐ Opción 4", "callback_data": '/int_sel_actividad{"ent_numActividad":"4"}'},
+                {"text": "📋 Ver todas", "callback_data": '/int_actividades_mostrarAll{"ent_actividades_all":"false"}'}
+            ]
+        ]
+
+        mensaje = {
+            "text": "Elige el numero de actividad que te interesa:",
+            "reply_markup": {"inline_keyboard": botones}
+        }
+
+        dispatcher.utter_message(json_message=mensaje)
+        return []
 
 
 
@@ -358,8 +414,9 @@ class ActionEjercicioDetallado(Action):
         paso_siguiente = paso + 1
 
         # Agregamos un refuerzo positivo al texto del paso
-        refuerzo = random.choice(REFUERZOS_PASOS)
-        texto_con_refuerzo = f"{texto}\n\n{refuerzo}"
+        # refuerzo = random.choice(REFUERZOS_PASOS)
+        # texto_con_refuerzo = f"{texto}\n\n{refuerzo}"
+        texto_con_refuerzo = texto
 
         dispatcher.utter_message(
             text=texto_con_refuerzo,

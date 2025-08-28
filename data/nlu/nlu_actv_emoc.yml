@@ -64,34 +64,28 @@ nlu:
   
 - intent: int_si_actividades
   examples: |
-    - sí
-    - sí, por favor
-    - claro
-    - correcto
-    - por supuesto
-    - exacto
-    - afirmativo
-    - así es
-    - de acuerdo
-    - ok
-    - okay
-    - vale
-    - perfecto
+    - sí, quiero actividades
+    - sí, muéstrame actividades
+    - claro, me interesan las actividades
+    - por supuesto, actividades por favor
+    - sí, actividades
+    - actividades sí
+    - quiero ver actividades
+    - me gustaría actividades
+    - muestra las actividades
+    - dame actividades
 
-- intent: int_no_actividades
+- intent: int_no_actividades  
   examples: |
-    - no
-    - no, gracias
-    - para nada
-    - en absoluto
-    - negativo
-    - nunca
-    - no quiero
-    - prefiero no
-    - mejor no
-    - cancelar
-    - no gracias
-    - no, por favor
+    - no quiero actividades
+    - no, sin actividades
+    - prefiero no hacer actividades
+    - actividades no
+    - no gracias, sin actividades
+    - cancelar actividades
+    - no me interesan actividades
+    - paso de actividades
+    - otra cosa, no actividades
 
  
 #verificar si se puede eliminar este intent

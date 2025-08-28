@@ -17,7 +17,7 @@ rules:
       - action: action_verificar_feedback #vericar si ya pasó el tiempo
       - slot_was_set:
           - slot_feedback_pendiente: false
-      - action: utter_despedida_final
+      - action: utter_bot_se_despide
 
 
   - rule: rul_Usuario_si_feedback
@@ -32,7 +32,7 @@ rules:
       - intent: int_no_despedida
       - slot_was_set:
           - slot_feedback_pendiente: false
-      - action: utter_despedida_final
+      - action: utter_bot_se_despide
 
   - rule: rul_Capturar_pregunta_1
     steps:
@@ -52,6 +52,7 @@ rules:
           - ent_satisfaccion
       - action: utter_pregunta_3
 
+  #aqui esta la falla
   - rule: rul_Capturar_pregunta_3
     steps:
       - slot_was_set:
@@ -60,5 +61,5 @@ rules:
         entities:
           - ent_recomendacion
       - action: utter_agradecimiento
-      - action: utter_despedida_final
+      - action: utter_bot_se_despide
       - action: action_deactivate_feedback

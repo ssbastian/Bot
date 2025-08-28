@@ -53,9 +53,15 @@ slots:
 
 responses:
   utter_ofrecer_feedback:
-    - text: "Antes de irte, ¿te gustaría responder 3 preguntas rápidas sobre tu experiencia? (sí/no)"
+    - text: "📊📝 {slot_name} antes de irte, ¿te gustaría responder 3 preguntas rápidas sobre tu experiencia? (sí/no)"
+      buttons:
+        - title: "✅ Sí, dar feedback"
+          payload: "/int_si_despedida"
+        - title: "❌ No, gracias"
+          payload: "/int_no_despedida"
+
   utter_pregunta_1:
-    - text: "¿Te sentiste mejor despues de la interacción con el bot?"
+    - text: "➡️ ¿Te sentiste mejor despues de la interacción con el bot?"
       buttons:
       - title: "Sí ✅"
         payload: '/int_respuesta_escuesta{{"ent_mejora":"si"}}'
@@ -63,7 +69,7 @@ responses:
         payload: '/int_respuesta_escuesta{{"ent_mejora":"no"}}'
 
   utter_pregunta_2:
-    - text: "Del 1 al 5, ¿cómo calificarías tu experiencia? (1: Mala, 5: Excelente)"
+    - text: "➡️ Del 1 al 5, ¿cómo calificarías tu experiencia? (1: Mala, 5: Excelente)"
       buttons:
       - title: "1 ⭐"
         payload: '/int_respuesta_escuesta{{"ent_satisfaccion": "1"}}'
@@ -77,7 +83,7 @@ responses:
         payload: '/int_respuesta_escuesta{{"ent_satisfaccion": "5"}}'
   
   utter_pregunta_3:
-    - text: "¿Recomendarías este bot a alguien más?"
+    - text: "➡️ ¿Recomendarías este bot a alguien más?"
       buttons:
         - title: "Sí ✅"
           payload: '/int_respuesta_escuesta{{"ent_recomendacion": "si"}}'
@@ -86,7 +92,7 @@ responses:
   
   utter_agradecimiento:
     - text: "¡Gracias por tu feedback! 💙"
-  utter_despedida_final:
+  utter_bot_se_despide:
     - text: "¡Hasta luego! Cuídate mucho."
 
 actions:

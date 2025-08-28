@@ -12,8 +12,9 @@ stories:
   - intent: int_expresar_emocion
     entities:
       - ent_emocion: negativo
-  - action: utter_emocion_negativa # para testear
-  - action: utter_ofrecer_actividad
+  # - action: utter_emocion_negativa # para testear
+  - action: action_ofrecer_actividad
+  #- action: utter_ofrecer_actividad
 
 
 - story: str_manejo_emocionesPositivas
@@ -21,8 +22,9 @@ stories:
   - intent: int_expresar_emocion
     entities:
       - ent_emocion: positivo
-  - action: utter_emocion_positiva
-  - action: utter_ofrecer_actividad
+  # - action: utter_emocion_positiva
+  - action: action_ofrecer_actividad
+  #- action: utter_ofrecer_actividad
 
 
 - story: str_manejo_emocionesNeutrales
@@ -30,10 +32,9 @@ stories:
   - intent: int_expresar_emocion
     entities:
       - ent_emocion: neutro
-  - action: utter_emocion_neutra
-  - action: utter_ofrecer_actividad
-
-
+  # - action: utter_emocion_neutra
+  - action: action_ofrecer_actividad
+  # - action: utter_ofrecer_actividad
 
 
 ## ==============================================
@@ -44,8 +45,8 @@ stories:
   steps:
   - intent: int_si_actividades
   - action: action_filtrar_opciones # muestra en pantalla las descripciones de las actividades
-  - action: utter_menu_sel_actividad # muestra botones de opciones
-
+  # - action: utter_menu_sel_actividad # muestra botones de opciones
+  - action: action_menu_sel_actividad
 
 
 - story: str_seleccion_opcciones_actividades
@@ -55,11 +56,6 @@ stories:
   - action: custom_action_ejecutar_opcion
   - action: utter_profundizar_actividades
 
-  # - intent: int_si_actividades
-  # - action: action_ejecutar_guia_interactiva
-   
-  
-
 ## ==============================================
 ## Flujos NEGACION actividades
 ## ==============================================
@@ -68,31 +64,20 @@ stories:
   steps:
     - intent: int_no_actividades
     - action: utter_respetar_decision
-    - action: utter_TEST
+    # - action: utter_TEST
     - action: utter_menu_list_alternativa
     - action: utter_menu_button_alternativa
-
-
-  #TODO RECURSOS
-
-
-  # - intent: int_si_actividades
-  # - action: action_guardar_progreso  # Guarda slots en DB
-  # - action: utter_despedida_final
-  #   text: "Gracias por compartir. ¡Hasta pronto!"
-
-
 
   
 ## ==========Flujo PARA ACTIVIDADES DETALLADAS==========
 - story: str_ejercicios_Detallados
   steps:
     - intent: int_solicitar_guia # solicitar ejercicio mas detallado
-    - action: utter_TEST
+    # - action: utter_TEST
     # - intent: int_elegir_activ_completa
     - slot_was_set:
         - slot_ejercicio_actual: "respiracion"
-    - action: utter_TEST
+    # - action: utter_TEST
     - action: action_ejercicio_detallado
     - intent: int_paso_listo
     - action: action_ejercicio_detallado
@@ -106,7 +91,7 @@ stories:
     - intent: int_elegir_activ_completa
       entities:
         - ent_ejercicio_actual: "respiracion" #slot_ejercicio_actual
-    - action: utter_TEST
+    # - action: utter_TEST
     - action: action_ejercicio_detallado
     - intent: int_paso_listo
     - action: action_ejercicio_detallado

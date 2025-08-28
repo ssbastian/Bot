@@ -54,6 +54,7 @@ nlu:
 - lookup: ent_person_nombre
   examples: |
     - Sebastián
+    - Matias
     - Daniela
     - Isa
     - Brayan
@@ -61,6 +62,7 @@ nlu:
     - Carlos
     - Franci
     - María
+    - Jose
     - Andrea
     - Juan
     - Pedro
@@ -82,8 +84,11 @@ nlu:
     - Miguel Ángel
     - Ricardo
     - Natalia
+    - Pedro
+    - Angeline
     - Jimena
     - Ximena
+    - Angie
     - Luis
     - Octavio
     - Elisa

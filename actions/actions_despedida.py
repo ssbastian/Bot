@@ -31,7 +31,7 @@ class ActionDeactivateFeedback(Action):
         ]
         
         print(f"🎯 RETURNING: {result}")
-        return result
+        return [result]
 
 
 class ActionVerificarFeedback(Action):

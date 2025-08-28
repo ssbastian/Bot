@@ -15,11 +15,16 @@ stories:
         entities:
           - ent_person_nombre
       - action: action_guardar_nombre
-      - slot_was_set:
-          - ultimo_tema: "preguntando_emocion"  # Actualización
+      - action: utter_pregunta_introversion
+      - or:
+          - intent: int_afirmar_saludo
+          - intent: int_negar_saludo
+      - action: action_explicar_introversion
+      - intent: int_entendido_saludo
+      - action: utter_actividades_intro
+      - intent: int_entendido_saludo
       - action: action_preguntar_emocion
-      # - intent: int_expresar_emocion
-      # - action: action_reaccionar_emocion2
+
 
 
   - story: flujo de saludo usuario conocido
@@ -30,5 +35,3 @@ stories:
           - ultimo_tema: "preguntando_emocion"  # Nuevo slot
       - action: utter_saludo_con_nombre
       - action: action_preguntar_emocion # muestra botones de emociones
-      # - intent: int_expresar_emocion
-      # - action: action_reaccionar_emocion2

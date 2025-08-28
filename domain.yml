@@ -3,6 +3,9 @@ intents:
 - int_saludo
 - int_dar_nombre
 - int_expresar_emocion
+- int_afirmar_saludo
+- int_negar_saludo
+- int_entendido_saludo
 - int_despedirse
 - int_si_despedida
 - int_no_despedida
@@ -147,69 +150,68 @@ slots:
 responses:
   utter_botones:
   - text: Hola estos son los botonoes
+  utter_nombre_guardado:
+  - text: ¡Perfecto, {slot_name}! Ya te tengo registrado.
+  - text: ¡Encantado de conocerte, {slot_name}!
+  - text: Gracias por compartir tu nombre, {slot_name}. Ahora puedo dirigirme a ti como corresponde.
+  - text: ¡Genial, {slot_name}! Nombre guardado en mi memoria de robot.
+  - text: ¡Listo, {slot_name}! Espero no olvidarlo… aunque soy un bot, así que tengo buena memoria.
+  - text: ¡Excelente, {slot_name}! Ahora ya somos oficialmente conocidos.
   utter_presentarse:
-  - text: Hola, soy un bot prototipo creado para apoyar a personas introvertidas con sus habilidades comunicacionales especificamente en situaciones sociales. Estoy aquí para escucharte y ofrecerte consejos útiles. 😊
+  - text: Hola, soy un bot🤖 prototipo creado para apoyar a personas introvertidas con sus habilidades comunicacionales especificamente en situaciones sociales. Estoy aquí para escucharte y ofrecerte consejos útiles. 😊
   utter_pedir_nombre:
   - text: ¿cómo te llamas?
   utter_saludo_con_nombre:
-  - text: ¡Hola de nuevo, {slot_name}! Me alegra verte otra vez por aquí. ¿Qué tal te ha ido desde nuestra última charla?
-  utter_ya_saludado:
-  - text: ¡Hola de nuevo! ¿Cómo te puedo ayudar ahora?
-  utter_saludo_nombre:
-  - text: ¡{slot_name}! Me alegra verte por aquí.
+  - text: ¡Hola de nuevo, {slot_name}! Es un gusto seguir conversando contigo.
+  - text: ¡Me alegra verte otra vez, {slot_name}! Gracias por regresar.
+  - text: ¡Bienvenido/a de nuevo, {slot_name}! Siempre es un placer acompañarte.
+  - text: ¡Qué bueno volver a coincidir contigo, {slot_name}! Me alegra que sigas aquí.
+  - text: ¡Hola, {slot_name}! Me alegra que sigas avanzando paso a paso.
+  - text: ¡De nuevo por aquí, {slot_name}! Me encanta que sigas explorando estas ideas.
+  - text: ¡Hola otra vez, {slot_name}! Cada conversación suma a tu progreso.
+  - text: ¡Hola, {slot_name}! Siempre es valioso tomarte este tiempo para ti.
   utter_solicitar_emocion_libre:
-  - text: Claro, cuéntame con tus propias palabras cómo te sientes.
-  utter_opciones_post_emocion:
-  - text: ¿Qué quieres hacer ahora? Puedes pedirme un consejo, contarme algo o simplemente charlar. 😊
-  utter_ofrecer_ayuda:
-  - text: Claro, estoy aquí para ayudarte 😊 ¿Sobre qué tema te gustaría hablar? Puedo darte consejos o simplemente escucharte.
-  utter_iniciar_conversacion_ligera:
-  - text: ¡Por supuesto! A veces es bueno desconectarse un poco. ¿Te gustaría que hablemos de hobbies, películas o algo que te relaje?
-  utter_consejos_sociales:
-  - text: Un buen primer paso es practicar pequeñas conversaciones. Puedes empezar saludando o preguntando algo simple como '¿Cómo va tu día?'. La clave es no presionarte demasiado 😊 ¿Quieres que te comparta algunos ejemplos prácticos?
+  - text: Claro, {slot_name} cuéntame con tus propias palabras cómo te sientes.
+  utter_pregunta_introversion:
+  - text: oye ¿Sabes qué es la introversión?
+    buttons:
+    - title: Sí
+      payload: /int_afirmar_saludo
+    - title: 'No'
+      payload: /int_negar_saludo
+  utter_explicar_introversion_si:
+  - text: '¡Genial! Igual te lo explico brevemente: la introversión es una forma natural de ser. Disfrutas más de la calma y puedes sentirte agotado en situaciones sociales intensas. ¿Así entendido?'
+    buttons:
+    - title: Entendido
+      payload: /int_entendido_saludo
+  utter_explicar_introversion_no:
+  - text: 'No pasa nada, te lo explico brevemente: la introversión es una forma natural de ser. Disfrutas más de la calma y puedes sentirte agotado en situaciones sociales intensas. ¿Así entendido?'
+    buttons:
+    - title: Entendido
+      payload: /int_entendido_saludo
+  utter_actividades_intro:
+  - text: Genial, tengo una serie de tecnicas de manejo emocional y actividades distractoras que espero te ayuden a sentirte mejor. ¿Listo?
+    buttons:
+    - title: Entendido
+      payload: /int_entendido_saludo
   utter_default:
   - text: Lo siento, no entendí bien eso. ¿Podrías reformularlo o preguntarme algo relacionado con la ansiedad social?
-  utter_ofrecer_recursos:
-  - text: Si necesitas ayuda profesional, puedo ofrecerte recursos o conectarte con un especialista. ¿Te gustaría eso?
-  utter_preguntar_continuar:
-  - text: ¿Quieres continuar con lo anterior o prefieres cambiar de tema?
-    buttons:
-    - title: Continuar
-      payload: /continuar
-    - title: Cambiar
-      payload: /cambiar_tema
-  utter_retomar_ultimo_tema:
-  - text: 'Volvamos a lo tuyo: ¿qué te gustaría hacer ahora? 😊'
-  utter_test_afirmar:
-  - text: ¡Genial! Me alegra que estés de acuerdo. 😊 ¿En qué más puedo ayudarte?xxx
-  utter_test_negar:
-  - text: Entiendo, no hay problema. Si cambias de opinión, aquí
-  utter_test_feliz_afirmar:
-  - text: ¡que bueno que estes feliz, y que bueno que quieras entrenar
-  utter_test_feliz_negar:
-  - text: ¡que bueno que estes feliz, pero que mal que no quieras entrenar
-  utter_ok_sin_ayuda:
-  - text: Perfecto 👍, entonces seguimos conversando de lo que quieras.
-  utter_respetar_decision:
-  - text: Entiendo, respeto tu decisión. Si cambias de opinión o necesitas algo más, aquí estaré para ayudarte.
-  utter_ofrecer_opciones:
-  - text: Podemos probar otra actividad o simplemente conversar. ¿Qué prefieres?
-    buttons:
-    - title: Otra actividad
-      payload: /otra_actividad
-    - title: Conversar
-      payload: /conversar
   utter_ofrecer_feedback:
-  - text: Antes de irte, ¿te gustaría responder 3 preguntas rápidas sobre tu experiencia? (sí/no)
+  - text: 📊📝 {slot_name} antes de irte, ¿te gustaría responder 3 preguntas rápidas sobre tu experiencia? (sí/no)
+    buttons:
+    - title: ✅ Sí, dar feedback
+      payload: /int_si_despedida
+    - title: ❌ No, gracias
+      payload: /int_no_despedida
   utter_pregunta_1:
-  - text: ¿Te sentiste mejor despues de la interacción con el bot?
+  - text: ➡️ ¿Te sentiste mejor despues de la interacción con el bot?
     buttons:
     - title: Sí ✅
       payload: /int_respuesta_escuesta{{"ent_mejora":"si"}}
     - title: No ❌
       payload: /int_respuesta_escuesta{{"ent_mejora":"no"}}
   utter_pregunta_2:
-  - text: 'Del 1 al 5, ¿cómo calificarías tu experiencia? (1: Mala, 5: Excelente)'
+  - text: '➡️ Del 1 al 5, ¿cómo calificarías tu experiencia? (1: Mala, 5: Excelente)'
     buttons:
     - title: 1 ⭐
       payload: '/int_respuesta_escuesta{{"ent_satisfaccion": "1"}}'
@@ -222,7 +224,7 @@ responses:
     - title: 5 ⭐
       payload: '/int_respuesta_escuesta{{"ent_satisfaccion": "5"}}'
   utter_pregunta_3:
-  - text: ¿Recomendarías este bot a alguien más?
+  - text: ➡️ ¿Recomendarías este bot a alguien más?
     buttons:
     - title: Sí ✅
       payload: '/int_respuesta_escuesta{{"ent_recomendacion": "si"}}'
@@ -230,8 +232,8 @@ responses:
       payload: '/int_respuesta_escuesta{{"ent_recomendacion": "no"}}'
   utter_agradecimiento:
   - text: ¡Gracias por tu feedback! 💙
-  utter_despedida_final:
-  - text: 👋 ¡Adiós! Quiero terminar la sesión
+  utter_bot_se_despide:
+  - text: ¡Hasta luego! Cuídate mucho.
   utter_TEST:
   - text: Esto es una prueba
   utter_emocion_prueba:
@@ -244,8 +246,8 @@ responses:
   - text: elegiste emocion positiva.
   utter_emocion_neutra:
   - text: elegiste emocion neutra.
-  utter_ofrecer_actividad:
-  - text: Tengo varias opciones que podrían ayudarte. ¿Quieres que te muestre algunas actividades adecuadas para tu estado animico
+  utter_respetar_decision:
+  - text: Esta bien {slot_name} respeto tu desición y si en algun momento quieres realizar alguna actividad solo dimelo 😀.
   utter_menu_list_actividadesN:
   - text: 'Opcones para momentos dificiles:
 
@@ -290,8 +292,6 @@ responses:
       4️⃣ Hidratación consciente
 
       5️⃣ Todas las actividades
-
-      ¿Dime que número te interesa?
 
       '
   utter_menu_sel_actividad:
@@ -608,8 +608,10 @@ responses:
       payload: /int_menu_sel_alternativa{{"ent_tipo_alternativa":"recursos"}}
     - title: Terminar la conversación
       payload: /int_menu_sel_alternativa{{"ent_tipo_alternativa":"despedida"}}
+  utter_usuario_se_despiede:
+  - text: 👋 ¡Adiós! Quiero terminar la sesión
   utter_menu_list_recurso:
-  - text: 'Tengo estos recursos disponibles para ti:
+  - text: 'Mirá tengo estos recursos disponibles para ti:
 
       1️⃣ Meditación guiada (5 min)
 
@@ -617,17 +619,15 @@ responses:
 
       3️⃣ Artículo sobre manejo emocional
 
-      ¿Qué número te interesa? dime
-
       '
   utter_menu_button_recurso:
-  - text: 'Elige una opción:'
+  - text: '{slot_name} ¿qué recurso te gustaria conocer?'
     buttons:
-    - title: Opcion 1
+    - title: 'Opcion 1️⃣ '
       payload: /int_menu_sel_recurso{{"ent_tipo_recurso":"meditacion"}}
-    - title: Opcion 2
+    - title: Opcion 2️⃣
       payload: /int_menu_sel_recurso{{"ent_tipo_recurso":"respiracion"}}
-    - title: Opcion 3
+    - title: Opcion 3️⃣
       payload: /int_menu_sel_recurso{{"ent_tipo_recurso":"articulo"}}
   utter_preguntar_feedback:
   - text: ¿Te gustaría que te enviara un recurso adicional o tienes alguna otra pregunta?
@@ -638,6 +638,11 @@ responses:
 actions:
 - action_guardar_nombre
 - action_preguntar_emocion
+- action_explicar_introversion
+- action_delay_pequeno
+- action_delay_medio
+- action_delay_grande
+- action_preguntar_comfort_con_delay
 - action_deactivate_feedback
 - action_verificar_feedback
 - action_filtrar_opciones
@@ -645,6 +650,8 @@ actions:
 - custom_action_ejecutar_cualquiera
 - action_mostrar_menu_all
 - action_ejercicio_detallado
+- action_ofrecer_actividad
+- action_menu_sel_actividad
 - action_manejar_alternativas
 - action_entrega_recurso_sel
 - action_responder_escucha_activa
