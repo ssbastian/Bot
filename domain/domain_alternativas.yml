@@ -60,14 +60,14 @@ responses:
   utter_menu_button_alternativa:
     - text: "¿Te gustaría en cambio..."
       buttons:
-      - title: "Hablar de cómo te sientes"
+      - title: "🤖Hablar"
         payload: '/int_menu_sel_alternativa{{"ent_tipo_alternativa":"sentimientos"}}'
-      - title: "Recibir algún recurso"
+      - title: "📚Recurso"
         payload: '/int_menu_sel_alternativa{{"ent_tipo_alternativa":"recursos"}}'
-      - title: "Terminar la conversación"
-        # payload: '/int_despedirse'
+      - title: "⏹️Terminar sesión"
+        payload: '/int_despedirse'
         #payload: "👋 Adiós! Quiero terminar la sesión"
-        payload: '/int_menu_sel_alternativa{{"ent_tipo_alternativa":"despedida"}}'
+        #payload: '/int_menu_sel_alternativa{{"ent_tipo_alternativa":"despedida"}}'
 
   utter_usuario_se_despiede:
     - text: "👋 ¡Adiós! Quiero terminar la sesión" 

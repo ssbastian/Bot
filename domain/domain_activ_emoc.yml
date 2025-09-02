@@ -109,6 +109,22 @@ responses:
         - title: "➡️Intentarlo por mi cuenta"
           payload: "/int_intentar_solo"
 
+
+# #  TODO AQUI ES .......
+#   utter_no_profundizar_actividades:
+#     - text: "¿Quieres?"
+#       buttons:
+#         - title: "➡️volver a las actividades?"
+#           payload: "/int_si_actividades"
+#         - title: "➡️Quieres otras alternativas"
+#           payload: "/int_no_actividades"
+#         - title: "➡️Quieres terminar la sesión?"
+#           payload: "/int_despedirse"
+
+
+
+
+
   utter_no_detallar_ejercicios:
     - text: "Si en algún momento quieres que te guíe, solo dímelo y con gusto te ayudo"
     - text: “¡Estoy seguro de que lo harás genial 💪! Lo importante no es la perfección, sino darte la oportunidad de intentarlo”
@@ -270,3 +286,4 @@ actions:
   - action_ofrecer_actividad
 
   - action_menu_sel_actividad
+  - action_menu_no_profundizar_actividades

@@ -10,22 +10,16 @@ intents:
   - int_negar_saludo
   - int_entendido_saludo
 
-
 entities:
   - ent_person_nombre
   - ent_emocion
 
-
-
-
-
 slots:
-  
   slot_usuario_nuevo:
     type: bool
     initial_value: true
     influence_conversation: true
-    mappings: 
+    mappings:
       - type: custom
 
   slot_name:
@@ -48,13 +42,10 @@ slots:
     mappings:
       - type: custom
 
-
-
 responses:
-
   utter_botones:
     - text: "Hola estos son los botonoes"
-  
+
   utter_nombre_guardado:
     - text: "¡Perfecto, {slot_name}! Ya te tengo registrado."
     - text: "¡Encantado de conocerte, {slot_name}!"
@@ -77,11 +68,9 @@ responses:
     - text: "¡De nuevo por aquí, {slot_name}! Me encanta que sigas explorando estas ideas."
     - text: "¡Hola otra vez, {slot_name}! Cada conversación suma a tu progreso."
     - text: "¡Hola, {slot_name}! Siempre es valioso tomarte este tiempo para ti."
-  
 
   utter_solicitar_emocion_libre:
     - text: "Claro, {slot_name} cuéntame con tus propias palabras cómo te sientes."
-    
 
   utter_pregunta_introversion:
     - text: "oye ¿Sabes qué es la introversión?"
@@ -91,7 +80,6 @@ responses:
         - title: "No"
           payload: "/int_negar_saludo"
 
-  
   utter_explicar_introversion_si:
     - text: "¡Genial! Igual te lo explico brevemente: la introversión es una forma natural de ser. Disfrutas más de la calma y puedes sentirte agotado en situaciones sociales intensas. ¿Así entendido?"
       buttons:
@@ -111,88 +99,22 @@ responses:
           payload: "/int_entendido_saludo"
 
 
-
-  # utter_opciones_post_emocion:
-  #   - text: "¿Qué quieres hacer ahora? Puedes pedirme un consejo, contarme algo o simplemente charlar. 😊"
-
-
-  # utter_ofrecer_ayuda:
-  #   - text: "Claro, estoy aquí para ayudarte 😊 ¿Sobre qué tema te gustaría hablar? Puedo darte consejos o simplemente escucharte."
-  
-  # utter_iniciar_conversacion_ligera:
-  #   - text: "¡Por supuesto! A veces es bueno desconectarse un poco. ¿Te gustaría que hablemos de hobbies, películas o algo que te relaje?"
- 
-  # utter_consejos_sociales:
-  #   - text: "Un buen primer paso es practicar pequeñas conversaciones. Puedes empezar saludando o preguntando algo simple como '¿Cómo va tu día?'. La clave es no presionarte demasiado 😊 ¿Quieres que te comparta algunos ejemplos prácticos?"
-
-
   utter_default:
     - text: "Lo siento, no entendí bien eso. ¿Podrías reformularlo o preguntarme algo relacionado con la ansiedad social?"
 
 
-  # utter_ofrecer_recursos:
-  #   - text: "Si necesitas ayuda profesional, puedo ofrecerte recursos o conectarte con un especialista. ¿Te gustaría eso?"
-
-  # utter_preguntar_continuar:
-  #   - text: "¿Quieres continuar con lo anterior o prefieres cambiar de tema?"
-  #     buttons:
-  #       - title: "Continuar"
-  #         payload: "/continuar"
-  #       - title: "Cambiar"
-  #         payload: "/cambiar_tema"
-
-  # utter_retomar_ultimo_tema:
-  #   - text: "Volvamos a lo tuyo: ¿qué te gustaría hacer ahora? 😊" 
-
-  # utter_test_int_afirmar_saludo:
-  #   - text: "¡Genial! Me alegra que estés de acuerdo. 😊 ¿En qué más puedo ayudarte?xxx"
-  # utter_test_int_negar_saludo:
-  #   - text: "Entiendo, no hay problema. Si cambias de opinión, aquí"
-
-  # utter_test_feliz_int_afirmar_saludo:
-  #   - text: "¡que bueno que estes feliz, y que bueno que quieras entrenar"
-
-  # utter_test_feliz_int_negar_saludo:
-  #   - text: "¡que bueno que estes feliz, pero que mal que no quieras entrenar"
-
-
-  # utter_ok_sin_ayuda:
-  #   - text: "Perfecto 👍, entonces seguimos conversando de lo que quieras."
-
-
-  # utter_ofrecer_opciones:
-  #   - text: "Podemos probar otra actividad o simplemente conversar. ¿Qué prefieres?"
-  #     buttons:
-  #       - title: "Otra actividad"
-  #         payload: "/otra_actividad"
-  #       - title: "Conversar"
-  #         payload: "/conversar"
-  
-
 
 actions:
-
   - action_guardar_nombre
   - action_preguntar_emocion
   - action_explicar_introversion
 
   #acciones para el ----DELAY----
   - action_delay_pequeno
-  - action_delay_medio  
+  - action_delay_medio
   - action_delay_grande
   - action_preguntar_comfort_con_delay
-
 
 session_config:
   session_expiration_time: 20
   carry_over_slots_to_new_session: true
-
-
-
-
-
-
-
-
-
-

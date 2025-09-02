@@ -90,6 +90,12 @@ slots:
     - type: from_entity
       entity: ent_recomendacion
       intent: int_respuesta_escuesta
+  slot_encuesta_completada:
+    type: bool
+    initial_value: false
+    influence_conversation: false
+    mappings:
+    - type: custom
   slot_tipo_emocion:
     type: categorical
     values:
@@ -602,12 +608,12 @@ responses:
   utter_menu_button_alternativa:
   - text: ¿Te gustaría en cambio...
     buttons:
-    - title: Hablar de cómo te sientes
+    - title: 🤖Hablar
       payload: /int_menu_sel_alternativa{{"ent_tipo_alternativa":"sentimientos"}}
-    - title: Recibir algún recurso
+    - title: 📚Recurso
       payload: /int_menu_sel_alternativa{{"ent_tipo_alternativa":"recursos"}}
-    - title: Terminar la conversación
-      payload: /int_menu_sel_alternativa{{"ent_tipo_alternativa":"despedida"}}
+    - title: ⏹️Terminar sesión
+      payload: /int_despedirse
   utter_usuario_se_despiede:
   - text: 👋 ¡Adiós! Quiero terminar la sesión
   utter_menu_list_recurso:
@@ -652,6 +658,7 @@ actions:
 - action_ejercicio_detallado
 - action_ofrecer_actividad
 - action_menu_sel_actividad
+- action_menu_no_profundizar_actividades
 - action_manejar_alternativas
 - action_entrega_recurso_sel
 - action_responder_escucha_activa

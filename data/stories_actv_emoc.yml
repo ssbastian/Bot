@@ -100,10 +100,10 @@ stories:
     - intent: int_paso_listo
     - action: action_ejercicio_detallado
 
-- story: str_no_ejercicios_Detallados
-  steps:
-    - intent: int_intentar_solo # solicitar ejercicio mas detallado
-    - action: utter_no_detallar_ejercicios
-    #- intent: utter_ofrecer_alternativas
+# - story: str_no_ejercicios_Detallados
+#   steps:
+#     - intent: int_intentar_solo # solicitar ejercicio mas detallado
+#     - action: utter_no_detallar_ejercicios
+
 
 

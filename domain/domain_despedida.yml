@@ -51,6 +51,14 @@ slots:
         intent: int_respuesta_escuesta
 
 
+  slot_encuesta_completada:
+    type: bool
+    initial_value: false
+    influence_conversation: false
+    mappings:
+      - type: custom
+
+
 responses:
   utter_ofrecer_feedback:
     - text: "📊📝 {slot_name} antes de irte, ¿te gustaría responder 3 preguntas rápidas sobre tu experiencia? (sí/no)"

@@ -24,9 +24,9 @@ nlu:
 
 
  
-- intent: int_respuesta_escuesta
-  examples: |
-    - [/~~si/](ent_mejora)
-    - [/~~no/](ent_mejora)
+# - intent: int_respuesta_escuesta
+#   examples: |
+#     - [/~~si/](ent_mejora)
+#     - [/~~no/](ent_mejora)
 
    

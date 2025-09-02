@@ -105,10 +105,15 @@ class ActionEntregaRecursoSel(Action):
             text=recurso["text"],
             image=recurso["image"]
         )
-        return [SlotSet("slot_tipo_recurso", None)]
-
-
-
+        
+        dispatcher.utter_message(
+            text = "¡Excelente! espero Disfrutes ese recurso y para que mas adelante me cuentes qué te pareció🌟"
+        )
+        # Llamar automáticamente al menú de opciones
+        return [
+            SlotSet("slot_tipo_recurso", None),
+            FollowupAction("action_menu_no_profundizar_actividades")
+        ]
 
 
 

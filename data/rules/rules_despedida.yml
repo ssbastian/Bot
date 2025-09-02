@@ -1,12 +1,10 @@
 version: "3.1"
 
 rules:
-
-
   - rule: rul_Iniciar_feedback_despedida
     steps:
       - intent: int_despedirse
-      - action: action_verificar_feedback  #vericar si ya pasó el tiempo
+      - action: action_verificar_feedback #vericar si ya pasó el tiempo
       - slot_was_set:
           - slot_feedback_pendiente: true
       - action: utter_ofrecer_feedback
@@ -18,7 +16,6 @@ rules:
       - slot_was_set:
           - slot_feedback_pendiente: false
       - action: utter_bot_se_despide
-
 
   - rule: rul_Usuario_si_feedback
     steps:
@@ -54,12 +51,14 @@ rules:
 
   #aqui esta la falla
   - rule: rul_Capturar_pregunta_3
-    steps:
+    condition:
       - slot_was_set:
           - slot_feedback_pendiente: true
+    steps:
       - intent: int_respuesta_escuesta
         entities:
           - ent_recomendacion
       - action: utter_agradecimiento
       - action: utter_bot_se_despide
       - action: action_deactivate_feedback
+      - action: action_listen # conversacion terminada 

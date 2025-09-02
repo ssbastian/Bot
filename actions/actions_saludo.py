@@ -5,7 +5,7 @@ from rasa_sdk.executor import CollectingDispatcher
 
 
 
-#from actions.db import guardarUsuario
+from actions.db import guardarUsuario
 
 
 #SALUDOS
@@ -20,13 +20,13 @@ class ActionGuardarNombre(Action):
 
 
         varNombre = tracker.get_slot("slot_name")
-        #sender_id = tracker.sender_id  # <- este es el ID único del usuario
+        sender_id = tracker.sender_id  # <- este es el ID único del usuario
         
         if not varNombre:
             dispatcher.utter_message(text="No entendí tu varNombre, ¿puedes repetirlo?")
             return []
 
-        #guardarUsuario(sender_id, varNombre)
+        guardarUsuario(sender_id, varNombre)
 
         #dispatcher.utter_message(text=f"Gracias, {varNombre}, he guardado tu nombre")
         dispatcher.utter_message(response ="utter_nombre_guardado")

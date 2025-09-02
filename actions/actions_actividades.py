@@ -1,9 +1,3 @@
-# This files contains your custom actions which can be used to run
-# custom Python code.
-#
-# See this guide on how to implement these action:
-# https://rasa.com/docs/rasa/custom-actions
-
 
 # This is a simple example for a custom action which utters "Hello World!"
 
@@ -97,6 +91,14 @@ class ActionEjecutarOpcion(Action):
     def run(self, dispatcher: CollectingDispatcher, 
             tracker: Tracker, 
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        # # ✅ VERIFICAR SI ESTAMOS EN FEEDBACK - ESTA ES LA SOLUCIÓN
+        # feedback_pendiente = tracker.get_slot("slot_feedback_pendiente")
+        # encuesta_completada = tracker.get_slot("slot_encuesta_completada")
+        
+        # # Si estamos en medio de feedback, NO procesar opciones
+        # if feedback_pendiente or encuesta_completada:
+        #     return []  # ← Retornar vacío, no hacer nada
 
         # 1. Obtener la emoción actual del slot
         varEmocion = tracker.get_slot("slot_tipo_emocion")
@@ -296,6 +298,31 @@ class ActionMenuSelActividad(Action):
 
 
 
+class ActionMenuNoProfundizarActividades(Action):
+    def name(self) -> Text:
+        return "action_menu_no_profundizar_actividades"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        botones = [
+            [
+                {"text": "🔙 Actividades", "callback_data": "/int_si_actividades"},
+                {"text": "✨ Alternativas", "callback_data": "/int_no_actividades"}
+            ],
+            [
+                {"text": "⏹️ Quieres terminar la sesión", "callback_data": "/int_despedirse"}
+            ]
+        ]
+
+        mensaje = {
+            "text": "¿Quieres seguir practicando estas actividades o prefieres ver otras ideas? \n También podemos cerrar la sesión si ya es suficiente por hoy ",
+            "reply_markup": {"inline_keyboard": botones}
+        }
+
+        dispatcher.utter_message(json_message=mensaje)
+        return []
 # ========================================ACTIVIDADES DETALLADAS =========================================================
 
 
@@ -405,6 +432,10 @@ class ActionEjercicioDetallado(Action):
         if paso >= len(pasos):
             refuerzo_final = random.choice(REFUERZOS_FINALES)
             dispatcher.utter_message(text=f"{refuerzo_final} 🌟")
+
+            # Mostrar el menú de opciones reutilizando la acción existente
+            ActionMenuNoProfundizarActividades().run(dispatcher, tracker, domain)
+
             return [SlotSet("slot_paso_actual", 0), SlotSet("slot_ejercicio_actual", None)]
 
         # Obtenemos el paso con texto y botón

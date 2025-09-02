@@ -1,0 +1,15 @@
+version: "3.1"
+
+rules:
+
+  
+  - rule: rul_no_ejercicios_Detallados
+    steps:
+      - action: utter_profundizar_actividades 
+      - intent: int_intentar_solo # solicitar ejercicio mas detallado
+      - action: utter_no_detallar_ejercicios
+      - action: action_menu_no_profundizar_actividades
+     # - action: utter_no_profundizar_actividades
+      
+
+
